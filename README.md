@@ -4,7 +4,7 @@
 
 
 ![Preview](./img/preview-light.png)
-<br>
+---
 ![Preview](./img/preview-dark.png)
 ---
 
