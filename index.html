@@ -14,41 +14,53 @@
   </head>
 
   <body>
-    <header>
+    <header class="header_container container">
       <h1 class="title">Книжная <span class="title-accent">полка</span></h1>
       <div class="control">
         <button class="btn btn_add-book">+ Добавить книгу</button>
         <button class="btn btn_change-theme">🌸</button>
       </div>
     </header>
-    <main>
-      <div class="main-control">
+    <main class="main_container">
+      <div class="main-control container">
         <div class="filter">
-          <div class="search_group">
+          <div class="search_group filter-group">
             <label class="search_label" for="search">🔍</label>
-            <input type="search" id="search" class="search_filter" />
+            <input
+              type="search"
+              id="search"
+              class="search_filter"
+              placeholder="Поиск по названию..."
+            />
           </div>
-          <div class="status_group">
-            <label class="status_label" for="status_filter">статус</label>
-            <select class="status_filter" id="status_filter">
+          <div class="status_group filter-group">
+            <label class="filter-label upcase" for="status_filter"
+              >статус</label
+            >
+            <select class="filter-select" id="status_filter">
+              <option value="all">Все</option>
+              <option value="reading">Читаю</option>
+              <option value="completed">Прочитано</option>
+              <option value="want">Хочу прочитать</option>
+              <option value="future">На будущее</option>
+              <option value="none">Не буду читать</option>
+            </select>
+          </div>
+          <div class="age_group filter-group">
+            <label class="filter-label upcase" for="age_filter">возраст</label>
+            <select class="filter-select" id="age_filter">
               <option value="all">Все</option>
             </select>
           </div>
-          <div class="age_group">
-            <label class="age_label" for="age_filter">возраст</label>
-            <select class="age_filter" id="age_filter">
+          <div class="author_group filter-group">
+            <label class="filter-label upcase" for="author_filter">автор</label>
+            <select class="filter-select" id="author_filter">
               <option value="all">Все</option>
             </select>
           </div>
-          <div class="author_group">
-            <label class="author_label" for="author_filter">автор</label>
-            <select class="author_filter" id="author_filter">
-              <option value="all">Все</option>
-            </select>
-          </div>
-          <div class="series_group">
-            <label class="series_label" for="series_filter">серия</label>
-            <select class="series_filter" id="series_filter">
+          <div class="series_group filter-group">
+            <label class="filter-label upcase" for="series_filter">серия</label>
+            <select class="filter-select" id="series_filter">
               <option value="all">Все</option>
             </select>
           </div>
@@ -56,16 +68,50 @@
         <button class="btn btn_random-book">✨ Случайная книга</button>
       </div>
 
-      <nav class="navigation">
-          <button type="button" class="navigation_title active_title">Моя полка</button>
-          <button type="button" href="#0" class="navigation_title">Все полки</button>
-          <button type="button" href="#0" class="navigation_title">Моя комната</button>
+      <nav class="navigation container">
+        <div class="border_nav">
+        <button type="button" class="navigation_title active_title">
+          Моя полка
+        </button>
+        <button type="button" class="navigation_title">
+          Все полки
+        </button>
+        <button type="button" class="navigation_title">
+          Моя комната
+        </button>
+        </div>
       </nav>
 
-      <div id="book-grid" class="book-grid"></div>
+      <div id="book-grid" class="book-grid container">
+        <!-- <div class="new-book">
+          <img src="" alt="Обложка книги" class="new-book_cover" />
+          <div class="new-book_info">
+            <div class="new-book_text">
+              <p class="new-book_title"></p>
+              <p class="new-book_author"></p>
+            </div>
+            <div class="new-book_tags">
+              <p class="new-book_age"></p>
+              <p class="new-book_series"></p>
+              <p class="new-book_genres">
+                <span class="new-book_genre"></span>
+                <span class="new-book_trop"></span>
+              </p>
+              <p class="new-book_status"></p>
+            </div>
+            <div class="new-book_stars">
+                <button class="star-btn" type="button">★</button>
+                <button class="star-btn" type="button">★</button>
+                <button class="star-btn" type="button">★</button>
+                <button class="star-btn" type="button">★</button>
+                <button class="star-btn" type="button">★</button>
+            </div>
+            </div>
+          </div> -->
+      </div>
     </main>
 
-    <div class="modal_group">
+    <div class="modal_group visually-hidden">
       <div class="modal_random-book">
         <button type="button" class="close-modal">&times;</button>
         <div class="random-book_main-info">
@@ -121,8 +167,18 @@
               id="edit-completed"
               value="completed"
             />
-            <input type="radio" name="edit-status" id="edit-want" value="want" />
-            <input type="radio" name="edit-status" id="edit-future" value="future" />
+            <input
+              type="radio"
+              name="edit-status"
+              id="edit-want"
+              value="want"
+            />
+            <input
+              type="radio"
+              name="edit-status"
+              id="edit-future"
+              value="future"
+            />
             <input
               type="radio"
               name="edit-status"
@@ -281,8 +337,18 @@
                 id="add-completed"
                 value="completed"
               />
-              <input type="radio" name="add-status" id="add-want" value="want" />
-              <input type="radio" name="add-status" id="add-future" value="future" />
+              <input
+                type="radio"
+                name="add-status"
+                id="add-want"
+                value="want"
+              />
+              <input
+                type="radio"
+                name="add-status"
+                id="add-future"
+                value="future"
+              />
               <input
                 type="radio"
                 name="add-status"
@@ -331,8 +397,12 @@
           </div> -->
 
           <div class="add-book_controls">
-            <button type="button" class="btn btn_add-book_cancel">Отмена</button>
-            <button type="button" class="btn btn_add-book_add">Добавить на полку</button>
+            <button type="button" class="btn btn_add-book_cancel">
+              Отмена
+            </button>
+            <button type="button" class="btn btn_add-book_add">
+              Добавить на полку
+            </button>
           </div>
         </div>
       </div>
