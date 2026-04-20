@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,9 @@
     <header class="header_container container">
       <h1 class="title">Книжная <span class="title-accent">полка</span></h1>
       <div class="control">
-        <button type="button" class="btn btn_add-book">+ Добавить книгу</button>
+        <button type="button" class="btn btn_add-book" data-modal="add-book">
+          + Добавить книгу
+        </button>
         <button type="button" class="btn btn_change-theme">🌸</button>
       </div>
     </header>
@@ -72,7 +74,11 @@
             </select>
           </div>
         </div>
-        <button type="button" class="btn btn_random-book">
+        <button
+          type="button"
+          class="btn btn_random-book"
+          data-modal="random-book"
+        >
           ✨ Случайная книга
         </button>
       </div>
@@ -92,7 +98,7 @@
           <span class="icon">📭</span>Книги не найдены. Добавьте первую!
         </div>
 
-        <!-- <div class="new-book" data-status="read">
+        <!-- <div class="new-book" data-status="read" data-modal="edit-book">
           <div class="new-book_bar"></div>
           <div class="new-book_main">
             <img src="" alt="Обложка книги" class="new-book_cover" />
@@ -119,11 +125,12 @@
 
     <div class="modal_group">
       <!-- Модалка случайной книги -->
-      <div class="modal-overlay">
+      <div class="modal-overlay" data-modal="random-book">
         <div class="modal_random-book">
           <button type="button" class="close-modal">
             <img src="./img/Vector 2.svg" alt="Кнопка закрыть" class="close" />
           </button>
+          <!-- <div class="modal_random-book_none">Нет книг в библиотеке</div> -->
           <div class="random-book_main-info">
             <h3 class="random-book_title">✨ Случайная книга</h3>
             <div class="random-book_book-info">
@@ -143,9 +150,12 @@
               <p class="random-book_series-title"></p>
               <ul class="random-book_all-series">
                 <li class="random-book_series-quantity">
-                  <p class="random-book_series-number random-book_main-number"></p>
-                  <p class="random-book_series-title-book random-book_main-book">
-                  </p>
+                  <p
+                    class="random-book_series-number random-book_main-number"
+                  ></p>
+                  <p
+                    class="random-book_series-title-book random-book_main-book"
+                  ></p>
                 </li>
               </ul>
             </div> -->
@@ -165,17 +175,13 @@
       </div>
 
       <!-- Модалка редактирования книги -->
-      <div class="modal-overlay">
+      <div class="modal-overlay" data-modal="edit-book">
         <div class="modal_edit-book">
           <button type="button" class="close-modal">
             <img src="./img/Vector 2.svg" alt="Кнопка закрыть" class="close" />
           </button>
           <div class="edit-book_main-info">
-            <img
-              class="edit-book_cover"
-              src=""
-              alt="Обложка книги"
-            />
+            <img class="edit-book_cover" src="" alt="Обложка книги" />
             <div class="edit-book_book-info">
               <h3 class="edit-book_title"></h3>
               <p class="edit-book_author"></p>
@@ -275,8 +281,8 @@
       </div>
 
       <!-- Модалка добавления книги -->
-      <div class="modal-overlay">
-        <div class="modal_add-book" id="modal_add-book">
+      <div class="modal-overlay" data-modal="add-book">
+        <form class="modal_add-book" id="modal_add-book">
           <button type="button" class="close-modal">
             <img src="./img/Vector 2.svg" alt="Кнопка закрыть" class="close" />
           </button>
@@ -293,16 +299,21 @@
                   placeholder="Название книги"
                   class="add-book_input-title"
                 />
+                <span class="error-message">Введите название книги</span>
               </div>
               <div class="add-book_info">
                 <label class="add-book_label-cover" for="add-book_cover"
-                  >Загрузить обложку</label
-                >
+                  >Загрузить обложку<img
+                    src=""
+                    alt="Preview"
+                    class="cover-preview"
+                /></label>
                 <input
                   type="file"
                   class="add-book_cover visually-hidden"
                   accept="image/*"
                   id="add-book_cover"
+                  name="cover"
                 />
                 <div class="add-book_text">
                   <div class="add-book_author-list">
@@ -315,6 +326,7 @@
                       class="add-book_field"
                       placeholder="Имя автора"
                     />
+                    <span class="error-message">Введите имя автора</span>
                     <datalist id="author-list"></datalist>
                   </div>
                   <div class="add-book_series-list">
@@ -374,60 +386,50 @@
                       placeholder="Название жанра"
                     />
                     <datalist id="genres-list"></datalist>
-
-                    <button type="button" class="btn btn_add-tag">
+                    <button
+                      type="button"
+                      class="btn btn_add-tag"
+                      id="add_genre"
+                    >
                       + Добавить
                     </button>
                   </div>
-                  <!-- <div class="add-genre">
-                    <div class="genre">
-                      <button
-                        type="button"
-                        class="btn genre-btn tag-genre active-genre"
-                      >
-                        <span class="text-genre"></span>
-                        <span class="delete-genre">&times;</span>
-                      </button>
-                    </div>
+                  <div class="add-genre" style="display: none">
+                    <div class="genre"></div>
                     <p class="choice-advice">
                       Выберите 2 основных нажатием на жанр
                     </p>
-                  </div> -->
+                  </div>
                 </div>
               </div>
               <div class="add-book_trops">
                 <label class="book-label" for="trops">Тропы</label>
                 <div class="trops-group">
-                  <div class="new-trop">
+                  <div class="new-trope">
                     <input
                       type="text"
                       name="trops"
                       id="trops"
                       list="trops-list"
-                      class="add-book_new-trop"
+                      class="add-book_new-trope"
                       placeholder="Название тропа"
                     />
                     <datalist id="trops-list"></datalist>
-
-                    <button type="button" class="btn btn_add-tag">
+                    <button
+                      type="button"
+                      class="btn btn_add-tag"
+                      id="add_trope"
+                    >
                       + Добавить
                     </button>
                   </div>
                 </div>
-                <!-- <div class="add-trop">
-                  <div class="trop">
-                    <button
-                      type="button"
-                      class="btn trop-btn tag-trop active-trop"
-                    >
-                      <span class="text-trop"></span>
-                      <span class="delete-trop">&times;</span>
-                    </button>
-                  </div>
+                <div class="add-trope" style="display: none">
+                  <div class="trope"></div>
                   <p class="choice-advice">
-                    Выберите 2 основных нажатием на жанр
+                    Выберите 2 основных нажатием на троп
                   </p>
-                </div> -->
+                </div>
               </div>
               <div class="add-book_annotation">
                 <label class="book-label" for="annotation">Аннотация</label>
@@ -499,8 +501,8 @@
                 <label class="book-label">Моё мнение</label>
 
                 <textarea
-                  name="edit-opinion"
-                  id="edit-opinion"
+                  name="add-opinion"
+                  id="add-opinion"
                   placeholder="Что понравилось? Что нет? Кому посоветуете?"
                   class="book-textarea"
                 ></textarea>
@@ -510,8 +512,8 @@
                 <label class="book-label">Заметки</label>
 
                 <textarea
-                  name="edit-notes"
-                  id="edit-notes"
+                  name="add-notes"
+                  id="add-notes"
                   placeholder="Цитаты, мысли, впечатления..."
                   class="book-textarea"
                 ></textarea>
@@ -522,13 +524,18 @@
               <button type="button" class="btn btn_add-book_cancel">
                 Отмена
               </button>
-              <button type="button" class="btn btn_add-book_add">
+              <button type="submit" class="btn btn_add-book_add">
                 Добавить на полку
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+
+    <script src="js/theme.js" defer></script>
+    <script src="js/ui-helpers.js" defer></script>
+    <script src="js/tags-trops.js" defer></script>
+    <script src="js/modals.js" defer></script>
   </body>
 </html>

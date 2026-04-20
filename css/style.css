@@ -5,9 +5,10 @@
 
   scrollbar-width: thin;
   scrollbar-color: var(--accent2) var(--bg2);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* [data-theme="dark"] {
+html[data-theme="dark"] {
   --bg: #1e0f22;
   --bg2: #2a1530;
   --bg3: #36203e;
@@ -33,7 +34,7 @@
   --tag-genre-text: #cc90f0;
   --tag-trope: #3a1a30;
   --tag-trope-text: #e090c0;
-} */
+}
 
 :root {
   --bg: #fdf6fc;
@@ -65,6 +66,10 @@
 
   --main-title-font: "Cormorant Garamond", serif;
   --main-text-font: "Nunito", sans-serif;
+}
+
+html {
+  transition: background-color 0.4s ease;
 }
 
 html,
@@ -244,7 +249,7 @@ select {
   font-size: 0.9rem;
   outline: none;
   background-color: var(--bg2);
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.4s ease;
 }
 
 .search_filter::placeholder {
@@ -473,7 +478,7 @@ select {
 
 .tag-age,
 .tag-genre,
-.tag-trop,
+.tag-trope,
 .tag-series {
   font-family: var(--main-text-font);
   font-weight: 700;
@@ -497,7 +502,7 @@ select {
   background-color: var(--tag-genre);
 }
 
-.tag-trop {
+.tag-trope {
   color: var(--tag-trope-text);
   background-color: var(--tag-trope);
 }
@@ -612,9 +617,52 @@ select {
   border-radius: 20px;
 }
 
+.error-message {
+    display: none;
+    position: absolute;
+    top: 100%; 
+    right: 0;
+    background-color: var(--nope);
+    color: var(--main_white); 
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+    white-space: nowrap;
+    z-index: 5;
+    pointer-events: none; 
+}
+
+.error-message::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 10px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid var(--nope);
+}
+
+.is-invalid .error-message {
+    display: block;
+}
+
+.is-invalid input {
+    border-color: var(--nope) !important;
+}
+
 /* ==============================
    MODAL — СЛУЧАЙНАЯ КНИГА
 ============================== */
+
+.modal_random-book_none {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-family: var(--main-title-font);
+  color: var(--text);
+}
 
 .random-book_main-info {
   display: flex;
@@ -1011,6 +1059,7 @@ select {
 .add-book_title-book {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .add-book_input-title {
@@ -1042,10 +1091,9 @@ select {
 
 .add-book_label-cover {
   width: 100%;
+  height: 100%;
   border-radius: 12px;
   border: 1px dashed var(--card-border);
-  padding-top: 149px;
-  padding-bottom: 149px;
   text-align: center;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -1053,6 +1101,41 @@ select {
   color: var(--text3);
   background-color: var(--bg2);
   font-family: var(--main-text-font);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.cover-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.book-card_no-cover {
+  --h: var(--book-hue, 280); 
+  background: linear-gradient(135deg, 
+    hsla(var(--h), 70%, 85%, 0.8), 
+    var(--bg2)
+  );
+  color: var(--text); 
+  --title-color: var(--accent1);
+}
+
+html[data-theme="dark"] .book-card_no-cover {
+  background: linear-gradient(135deg, 
+    hsla(var(--h), 40%, 30%, 0.9), 
+    var(--card)
+  );
 }
 
 .add-book_field {
@@ -1070,9 +1153,13 @@ select {
   color: var(--text3);
 }
 
+.add-book_author-list {
+  position: relative;
+}
+
 /* --- Жанры --- */
 
-.trop-btn,
+.trope-btn,
 .genre-btn {
   display: inline-flex;
   align-items: center;
@@ -1130,6 +1217,10 @@ select {
   border-radius: 20px;
   margin-top: 7px;
   font-family: var(--main-text-font);
+  gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .genre-btn {
@@ -1143,7 +1234,7 @@ select {
 }
 
 .delete-genre,
-.delete-trop {
+.delete-trope {
   font-size: 1rem;
 }
 
@@ -1153,7 +1244,7 @@ select {
 
 /* --- Тропы --- */
 
-.trop {
+.trope {
   flex: 1;
   padding: 8px 8px 8px 14px;
   color: var(--text);
@@ -1165,7 +1256,7 @@ select {
   font-family: var(--main-text-font);
 }
 
-.trop-btn {
+.trope-btn {
   font-family: var(--main-text-font);
   font-size: 0.8rem;
   padding: 3px 9px;
@@ -1175,17 +1266,17 @@ select {
   outline: none;
 }
 
-.active-trop {
+.active-trope {
   border: 1px solid var(--tag-trope-text);
 }
 
-.new-trop {
+.new-trope {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.add-book_new-trop {
+.add-book_new-trope {
   flex: 1;
   padding: 7px 7px 7px 14px;
   color: var(--text);
@@ -1196,7 +1287,7 @@ select {
   font-family: var(--main-text-font);
 }
 
-.add-book_new-trop::placeholder {
+.add-book_new-trope::placeholder {
   color: var(--text3);
 }
 
@@ -1383,7 +1474,7 @@ select {
 .new-annotation:hover,
 .book-textarea:hover,
 .add-book_new-genre:hover,
-.add-book_new-trop:hover {
+.add-book_new-trope:hover {
   border-color: var(--accent1);
 }
 
@@ -1392,7 +1483,7 @@ select {
 .new-annotation:focus,
 .book-textarea:focus,
 .add-book_new-genre:focus,
-.add-book_new-trop:focus {
+.add-book_new-trope:focus {
   outline: 3px solid var(--card-border);
   border-color: var(--accent1);
 }
@@ -1413,7 +1504,7 @@ select {
 }
 
 .genre-btn,
-.trop-btn {
+.trope-btn {
   animation: tag-in 0.2s ease;
 }
 
@@ -1619,7 +1710,7 @@ select {
 
   .tag-age,
   .tag-genre,
-  .tag-trop,
+  .tag-trope,
   .tag-series,
   .new-book_status {
     font-size: 0.6rem;
@@ -1738,7 +1829,7 @@ select {
   }
 
   .new-genre,
-  .new-trop {
+  .new-trope {
     flex-direction: column;
     align-items: stretch;
   }
