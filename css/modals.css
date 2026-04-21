@@ -1,0 +1,299 @@
+/* ==============================
+   @OVERLAY
+   ============================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--modal-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    backdrop-filter 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ==============================
+   @BASE_STRUCTURE
+   ============================== */
+
+.modal_random-book,
+.modal_edit-book,
+.modal_add-book {
+  position: relative;
+  width: 100%;
+  padding: 36px;
+  background-color: var(--card);
+  border-radius: 24px;
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 60px var(--shadow2);
+  max-height: 90vh;
+}
+
+.modal_random-book {
+  max-width: 480px;
+}
+
+.modal_edit-book {
+  max-width: 620px;
+}
+
+.modal_add-book {
+  max-width: 620px;
+  overflow-y: auto;
+}
+
+/* ==============================
+   @RANDOM_BOOK
+   ============================== */
+
+.modal_random-book_none {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: 400;
+  font-family: var(--main-title-font);
+  color: var(--text);
+}
+
+.random-book_main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.random-book_title {
+  font-family: var(--main-title-font);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.random-book_book-info {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.random-book_cover {
+  grid-column: 2;
+  width: 186px;
+  height: 281px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px var(--shadow2);
+}
+
+.random-book_tags {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.random-book_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.random-book_book-title {
+  font-family: var(--main-title-font);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.random-book_book-author,
+.random-book_book-annotation,
+.random-book_series-title,
+.random-book_series-title-book {
+  font-family: var(--main-text-font);
+}
+
+.random-book_book-author {
+  font-size: 0.9rem;
+  color: var(--text3);
+}
+
+.random-book_book-annotation {
+  font-size: 0.83rem;
+  font-weight: 300;
+  color: var(--text2);
+  margin-top: 14px;
+}
+
+/* --- Серии --- */
+
+.random-book_series-group {
+  width: 100%;
+  margin-top: 14px;
+  padding: 18px 0 18px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg2), var(--bg3));
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+}
+
+.random-book_series-title {
+  font-weight: 800;
+  font-size: 0.8rem;
+  color: var(--accent1);
+  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.random-book_all-series {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.random-book_series-quantity {
+  display: flex;
+  gap: 8px;
+}
+
+.random-book_series-number {
+  font-family: var(--main-text-font);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 50%;
+  color: var(--main_white);
+  background-color: var(--accent1);
+}
+
+.random-book_main-number {
+  background-color: var(--text3);
+}
+
+.random-book_series-title-book {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text2);
+}
+
+.random-book_main-book {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.random-book_buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* ==============================
+   @EDIT_BOOK
+   ============================== */
+
+.edit-book_main-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+.edit-book_cover {
+  width: 114px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.edit-book_book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.edit-book_title {
+  font-family: var(--main-title-font);
+  font-size: 1.5rem;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.edit-book_author {
+  font-family: var(--main-text-font);
+  font-size: 0.85rem;
+  color: var(--text3);
+}
+
+.edit-book_book-annotation {
+  font-family: var(--main-text-font);
+  margin-top: 10px;
+  font-size: 0.85rem;
+  letter-spacing: 150%;
+  color: var(--text2);
+}
+
+.edit-book_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+/* ==============================
+   @COMPONENTS_WRAPPERS
+   ============================== */
+
+.status-book_group {
+  border-top: 1px solid var(--card-border);
+  margin-top: 10px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--main-text-font);
+}
+
+.book-rating_group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 17px 19px 37px 19px;
+  margin-top: 18px;
+  background-color: var(--bg2);
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+}
+
+.edit-book_controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

@@ -1,0 +1,40 @@
+/* [CONTENTS]
+  1. @LAYOUT ......... Основной контейнер управления
+  2. @FILTERS ........ Группы фильтров и лейблы
+*/
+
+/* ==============================
+   @LAYOUT
+   ============================== */
+.main-control {
+  background-color: var(--bg2);
+  border: 1px solid var(--card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/* ==============================
+   @FILTERS
+   ============================== */
+.filter {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-family: var(--main-text-font);
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-label {
+  font-size: 0.78rem;
+  margin-bottom: 0;
+}

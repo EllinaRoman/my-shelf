@@ -1,0 +1,178 @@
+/* [CONTENTS]
+  1. @NAVIGATION ..... Переключатели разделов (Все книги, Читаю и т.д.)
+  2. @GRID ........... Сетка и заглушки
+  3. @BOOK_CARD ...... Основная структура карточки
+  4. @BOOK_DETAILS ... Внутреннее наполнение (инфо, теги, статусы)
+*/
+
+/* ==============================
+   @NAVIGATION
+   ============================== */
+.navigation {
+  background-color: var(--bg);
+  padding-top: 32px;
+  padding-bottom: 30px;
+}
+
+.border_nav {
+  display: flex;
+  gap: 50px;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.navigation_title {
+  font-family: var(--main-title-font);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text2);
+  border: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.active_title {
+  color: var(--text);
+  transform: translateY(-10px);
+  cursor: default;
+}
+
+.navigation_title:hover:not(.active_title) {
+  transform: translateY(-3px);
+  color: var(--accent1);
+}
+
+/* ==============================
+   @GRID
+   ============================== */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px;
+}
+
+.no-book {
+  grid-column: 1 / -1;
+  font-size: 1rem;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text3);
+  font-weight: 400;
+  font-family: var(--main-text-font);
+}
+
+.icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* ==============================
+   @BOOK_CARD
+   ============================== */
+.new-book {
+  background-color: var(--card);
+  border-radius: 16px;
+  display: flex;
+  overflow: clip;
+  overflow-clip-margin: 0;
+  cursor: pointer;
+}
+
+.new-book:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px var(--shadow2);
+} 
+
+
+.new-book_bar {
+  height: 100%;
+  width: 4px;
+  flex-shrink: 0;
+  border-radius: 16px 0 0 16px;
+}
+
+/* Цвета полоски статуса */
+[data-status="read"] .new-book_bar { background-color: var(--read); }
+[data-status="reading"] .new-book_bar { background-color: var(--reading); }
+[data-status="want"] .new-book_bar { background-color: var(--want); }
+[data-status="future"] .new-book_bar { background-color: var(--future); }
+[data-status="nope"] .new-book_bar { background-color: var(--nope); }
+
+.new-book_main {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  padding: 17px 34px 17px 15px;
+  flex: 1;
+}
+
+.new-book_cover {
+  border-radius: 10px;
+  width: 206px;
+  height: 313px;
+  object-fit: cover;
+}
+
+/* ==============================
+   @BOOK_DETAILS
+   ============================== */
+.new-book_info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.new-book_title {
+  font-family: var(--main-title-font);
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: 130%;
+  font-weight: 600;
+}
+
+.new-book_author {
+  font-family: var(--main-text-font);
+  font-weight: 600;
+  color: var(--text3);
+  font-size: 0.8rem;
+  margin-top: 10px;
+}
+
+.new-book_tags {
+  display: flex;
+  row-gap: 10px;
+  column-gap: 5px;
+  flex-wrap: wrap;
+}
+
+.new-book_status {
+  font-family: var(--main-text-font);
+  font-weight: 600;
+  font-size: 0.7rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  color: var(--main_white);
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+/* Цвета плашки статуса */
+.new-book_status[data-status="reading"] { background-color: var(--reading); }
+.new-book_status[data-status="future"] { background-color: var(--future); }
+.new-book_status[data-status="nope"] { background-color: var(--nope); }
+.new-book_status[data-status="want"] { background-color: var(--want); }
+.new-book_status[data-status="read"] { background-color: var(--read); }
+
+.new-book_stars {
+  display: flex;
+  gap: 2px;
+  font-size: 0.9rem;
+  color: var(--star-active);
+}

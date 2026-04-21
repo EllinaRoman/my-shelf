@@ -1,0 +1,45 @@
+/* [CONTENTS]
+  1. @LAYOUT ......... Контейнер шапки
+  2. @LOGO ........... Стили заголовка-логотипа
+  3. @CONTROLS ....... Блок кнопок в шапке
+*/
+
+/* ==============================
+   @LAYOUT
+   ============================== */
+.header_container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: var(--bg2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ==============================
+   @LOGO
+   ============================== */
+.title {
+  font-weight: 300;
+  font-family: var(--main-title-font);
+  color: var(--accent1);
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  cursor: default;
+}
+
+.title-accent {
+  color: var(--accent2);
+  font-style: italic;
+}
+
+/* ==============================
+   @CONTROLS
+   ============================== */
+.control {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+

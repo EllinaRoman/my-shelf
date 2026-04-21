@@ -1,0 +1,90 @@
+/* [CONTENTS]
+  1. @RESET .......... Сброс дефолтных стилей
+  2. @GLOBAL ......... Базовые настройки html и body
+  3. @SCROLLBAR ...... Стилизация полосы прокрутки
+  4. @UTILITIES ...... Вспомогательные классы и контейнер
+*/
+
+/* ==============================
+   @RESET
+   ============================== */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent2) var(--bg2);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.btn,
+select {
+  cursor: pointer;
+}
+
+/* ==============================
+   @GLOBAL
+   ============================== */
+html {
+  transition: background-color 0.4s ease;
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ==============================
+   @SCROLLBAR
+   ============================== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent2);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent1);
+}
+
+/* ==============================
+   @UTILITIES
+   ============================== */
+.container {
+  padding-right: 32px;
+  padding-left: 32px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

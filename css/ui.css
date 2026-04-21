@@ -1,0 +1,531 @@
+/* ==============================
+   @BUTTONS — Основные кнопки
+   ============================== */
+
+.btn_random-book,
+.btn_add-book,
+.btn_change-theme,
+.filter-select,
+.search_filter {
+  font-family: var(--main-text-font);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btn_random-book {
+  padding: 9px 20px;
+  color: var(--main_white);
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent2), var(--star-active));
+  border-radius: 50px;
+  box-shadow: 0 4px 12px var(--shadow);
+  border: none;
+  min-width: 11rem;
+}
+
+.btn_random-book:hover {
+  transform: translateY(-3px);
+}
+.btn_random-book:active {
+  transform: scale(0.98) translateY(-2px);
+}
+.btn_random-book:focus-visible {
+  outline: 2px solid var(--accent2);
+}
+
+.btn_add-book,
+.btn_change-theme {
+  color: var(--text2);
+  background-color: var(--bg3);
+  border: 1px solid var(--card-border);
+}
+
+.btn_add-book {
+  padding: 9px 20px;
+  font-size: 0.85rem;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.btn_change-theme {
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  border-radius: 50%;
+}
+
+.btn_add-book:hover,
+.btn_change-theme:hover {
+  background-color: var(--accent2);
+  color: var(--main_white);
+}
+.btn_add-book:focus-visible,
+.btn_change-theme:focus-visible {
+  outline: 1px solid var(--card-border);
+}
+
+.btn_add-book:active,
+.btn_change-theme:active {
+  transform: scale(0.98);
+}
+
+/* ==============================
+   @INPUTS — Поля ввода и поиск
+   ============================== */
+
+.search_filter {
+  padding: 11px 16px;
+  color: var(--text);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  outline: none;
+  background-color: var(--bg2);
+}
+
+.filter-select {
+  padding: 7px 14px;
+  color: var(--text);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  outline: none;
+  background-color: var(--card);
+}
+
+.search_filter:hover,
+.filter-select:hover {
+  border-color: var(--accent1);
+}
+
+.search_filter:focus {
+  outline: 3px solid var(--card-border);
+  border-color: var(--accent1);
+}
+
+.search_filter::placeholder {
+  color: var(--text3);
+}
+
+.add-book_input-title,
+.add-book_field,
+.new-annotation,
+.book-textarea {
+  width: 100%;
+  color: var(--text);
+  font-size: 0.9rem;
+  border: 1px solid var(--card-border);
+  background-color: var(--bg2);
+  border-radius: 12px;
+  font-family: var(--main-text-font);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.book-textarea,
+.new-annotation {
+  padding: 12px 16px;
+  min-height: 80px;
+  margin-top: 7px;
+  resize: none;
+  outline: none;
+  overflow: auto;
+}
+
+.add-book_input-title {
+  padding: 12px 16px;
+}
+
+.add-book_field {
+  padding: 12px 0 12px 16px;
+}
+
+.book-textarea::placeholder,
+.add-book_input-title::placeholder,
+.add-book_field::placeholder,
+.new-annotation::placeholder,
+.add-book_new-genre::placeholder,
+.add-book_new-trope::placeholder {
+  color: var(--text3);
+}
+
+.add-book_field:hover,
+.add-book_input-title:hover,
+.new-annotation:hover,
+.book-textarea:hover,
+.add-book_new-genre:hover,
+.add-book_new-trope:hover {
+  border-color: var(--accent1);
+}
+
+.add-book_field:focus,
+.add-book_input-title:focus,
+.new-annotation:focus,
+.book-textarea:focus,
+.add-book_new-genre:focus,
+.add-book_new-trope:focus {
+  outline: 3px solid var(--card-border);
+  border-color: var(--accent1);
+}
+
+/* ==============================
+   @MODAL_UI — Элементы внутри модалок
+   ============================== */
+
+.close-modal {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text2);
+  background-color: var(--bg3);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.1s;
+}
+
+.close-modal:hover {
+  background-color: var(--accent2);
+  color: var(--main_white);
+}
+.close-modal:active {
+  transform: scale(0.95);
+}
+
+.book-label {
+  color: var(--text3);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  display: block;
+}
+
+/* Кнопки действий в модалках */
+.btn-save {
+  font-family: var(--main-text-font);
+  font-weight: 700;
+  color: var(--main_white);
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--accent1), var(--accent3));
+  padding: 11px 22px;
+  box-shadow: 0 4px 15px var(--shadow2);
+  font-size: 0.85rem;
+}
+
+.btn-delete {
+  font-family: var(--main-text-font);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--nope);
+  border-radius: 50px;
+  border: 1px solid var(--nope);
+  background-color: var(--bg3);
+  padding: 11px 12px;
+  cursor: pointer;
+}
+
+.btn_add-book_add {
+  font-family: var(--main-text-font);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid var(--card-border);
+  border-radius: 50px;
+  color: var(--main_white);
+  background: linear-gradient(135deg, var(--accent1), var(--accent3));
+  padding: 10px 22px;
+  box-shadow: 0 4px 15px var(--shadow2);
+}
+
+.btn_add-book_cancel {
+  font-family: var(--main-text-font);
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid var(--card-border);
+  border-radius: 50px;
+  color: var(--text2);
+  background-color: var(--bg3);
+  padding: 10px 18px;
+}
+
+.btn_add-tag {
+  font-family: var(--main-text-font);
+  color: var(--main_white);
+  background-color: var(--accent1);
+  padding: 7px 14px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+}
+
+.btn_add-tag:hover {
+  background-color: var(--accent3);
+}
+
+.btn_add-book_cancel:hover {
+  background-color: var(--accent2);
+  color: var(--main_white);
+  border-color: var(--accent2);
+}
+
+.btn_add-book_add:hover {
+  box-shadow: 0 6px 20px var(--shadow2);
+  transform: translateY(-2px);
+}
+
+.btn-delete:hover {
+  background-color: var(--nope);
+  color: var(--main_white);
+}
+
+.btn-delete:active,
+.btn-save:active,
+.btn_add-book_cancel:active,
+.btn_add-book_add:active,
+.btn_add-tag:active {
+  transform: scale(0.97);
+}
+
+.btn-save:hover {
+  box-shadow: 0 6px 20px var(--shadow2);
+  transform: translateY(-2px);
+}
+
+/* Рандом-кнопки (Хочу/Буду/Нет) */
+.btn_random-book_want,
+.btn_random-book_future,
+.btn_random-book_none {
+  width: 40%;
+  padding: 10px 18px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  font-family: var(--main-text-font);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--main_white);
+}
+
+.btn_random-book_want {
+  background-color: var(--want);
+}
+.btn_random-book_future {
+  background-color: var(--future);
+}
+.btn_random-book_none {
+  background-color: var(--nope);
+}
+
+.btn_random-book_want:hover {
+  background-color: var(--accent3);
+}
+.btn_random-book_future:hover,
+.btn_random-book_none:hover {
+  opacity: 0.85;
+}
+
+.btn_random-book_want:active,
+.btn_random-book_future:active,
+.btn_random-book_none:active {
+  transform: scale(0.97);
+}
+
+/* ==============================
+   @TAGS — Теги
+   ============================== */
+
+.tag-age,
+.tag-genre,
+.tag-trope,
+.tag-series {
+  font-family: var(--main-text-font);
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.tag-age {
+  color: var(--text2);
+  background-color: var(--bg3);
+  border: 1px solid var(--card-border);
+}
+.tag-genre {
+  color: var(--tag-genre-text);
+  background-color: var(--tag-genre);
+}
+.tag-trope {
+  color: var(--tag-trope-text);
+  background-color: var(--tag-trope);
+}
+.tag-series {
+  color: var(--main_white);
+  background: linear-gradient(135deg, var(--accent1), var(--accent3));
+}
+
+.genre-btn,
+.trope-btn {
+  font-family: var(--main-text-font);
+  font-size: 0.8rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.active-genre {
+  border: 1px solid var(--tag-genre-text);
+}
+.active-trope {
+  border: 1px solid var(--tag-trope-text);
+}
+
+.delete-genre,
+.delete-trope {
+  font-size: 1rem;
+}
+
+.choice-advice {
+  font-family: var(--main-text-font);
+  font-weight: 200;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--text3);
+}
+
+/* ==============================
+   @TOGGLE & RATING — Переключатели
+   ============================== */
+
+.status-toggle {
+  position: relative;
+  display: flex;
+  background-color: var(--bg2);
+  border-radius: 21px;
+  padding: 4px;
+  border: 1px solid var(--card-border);
+  overflow: hidden;
+}
+
+.status-toggle input[type="radio"] {
+  display: none;
+}
+
+.status-toggle label {
+  flex: 1;
+  padding: 3px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  cursor: pointer;
+  color: var(--text);
+  position: relative;
+  z-index: 2;
+  transition: color 0.25s ease;
+  user-select: none;
+}
+
+.status-toggle label.status-active {
+  font-weight: 600;
+  color: var(--main_white);
+}
+
+.status-glider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: calc(100% - 8px);
+  width: calc(100% / 5);
+  background-color: var(--accent1);
+  border-radius: 50px;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.star-rating {
+  display: flex;
+  gap: 6px;
+}
+
+.star-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: var(--star);
+  line-height: 1;
+}
+
+.star-active {
+  color: var(--star-active);
+}
+
+.star-btn:hover {
+  transform: scale(1.2);
+  color: var(--star-active);
+}
+
+.star-btn:active {
+  transform: scale(0.9);
+}
+
+/* ==============================
+   @VALIDATION — Ошибки
+   ============================== */
+
+.error-message {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--nope);
+  color: var(--main_white);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 1rem;
+  white-space: nowrap;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.error-message::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: 10px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--nope);
+}
+
+.is-invalid .error-message {
+  display: block;
+}
+
+.is-invalid input {
+  border-color: var(--nope) !important;
+}
