@@ -23,15 +23,11 @@ document.addEventListener('click', async (e) => {
     if (openBtn) {
         const { modal, id } = openBtn.dataset;
 
-        if (modal === 'edit-book' && id) {
-            await fillEditForm(id);
-        }
-
         const overlay = document.querySelector(`.modal-overlay[data-modal="${modal}"]`);
         if (overlay) setModalState(overlay, true);
         return;
     }
-})
+});
 
 export const setModalState = (overlay, isOpen) => {
     overlay.classList.toggle('open', isOpen);
@@ -40,8 +36,8 @@ export const setModalState = (overlay, isOpen) => {
     if (!isOpen) {
         overlay.querySelectorAll('.is-invalid').forEach(el => {
             el.classList.remove('is-invalid');
-        })
+        });
     }
-}
+};
 
 

@@ -15,7 +15,7 @@ document.addEventListener('change', (e) => {
             label.classList.add('status-active');
         }
     }
-})
+});
 
 document.addEventListener('click', (e) => {
     const star = e.target.closest('.star-btn');
@@ -30,10 +30,10 @@ document.addEventListener('click', (e) => {
             } else {
                 item.classList.remove('star-active');
             }
-        })
+        });
         stars.dataset.value = index + 1;
     }
-})
+});
 
 export const gliderReset = (form) => {
     const overlay = form.closest('.modal-overlay');
@@ -56,4 +56,4 @@ export const gliderReset = (form) => {
         starRating.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('star-active'));
         starRating.dataset.value = 0;
     }
-}
+};

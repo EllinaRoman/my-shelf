@@ -83,7 +83,7 @@ formAddBook.addEventListener('submit', (e) => {
             saveBook(null);
         }
     }
-})
+});
 
 export const resetForm = (form) => {
     form.reset();
@@ -103,4 +103,4 @@ export const resetForm = (form) => {
     listTrope.parentElement.style.display = 'none';
     gliderReset(form);
     setModalState(overlay, false);
-}
+};

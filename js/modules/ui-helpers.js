@@ -18,7 +18,7 @@ bookCoverInput.addEventListener('change', (e) => {
         imgPreview.style.display = "none";
         label.style.fontSize = '';
     }
-})
+});
 
 export const getBookDesign = () => {
     const chance = Math.random() * 100;
@@ -33,4 +33,4 @@ export const getBookDesign = () => {
         hue = Math.floor(Math.random() * 50 + 80); 
     }
     return hue;
-}
+};

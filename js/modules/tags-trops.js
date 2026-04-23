@@ -11,7 +11,7 @@ export const addTag = (input, storage, list, itemClass, textClass, deleteClass) 
         storage.push(value);
         list.style.display = '';
         const newBtn = document.createElement("button");
-        newBtn.type = "button"
+        newBtn.type = "button";
         newBtn.className = (itemClass);
         newBtn.innerHTML = `<span class="${textClass}">${value}</span>
                         <span class="${deleteClass}">&times;</span>`;
@@ -19,7 +19,7 @@ export const addTag = (input, storage, list, itemClass, textClass, deleteClass) 
         innerList.append(newBtn);
         input.value = '';
     }
-}
+};
 
 export const clickTag = (e, storage, list, activeClass, itemSelector, textSelector, deleteSelector) => {
     const deleteBtn = e.target.closest(deleteSelector);
@@ -38,7 +38,7 @@ export const clickTag = (e, storage, list, activeClass, itemSelector, textSelect
         const mainBtn = e.target.closest(itemSelector);
         if (mainBtn) {
             if (mainBtn.classList.contains(activeClass)) {
-                mainBtn.classList.toggle(activeClass)
+                mainBtn.classList.toggle(activeClass);
             } else {
                 if (list.querySelectorAll(`.${activeClass}`).length < 2) {
                     mainBtn.classList.toggle(activeClass);
@@ -46,7 +46,7 @@ export const clickTag = (e, storage, list, activeClass, itemSelector, textSelect
             }
         }
     }
-}
+};
 
 
 btnAddGenres.addEventListener('click', () => {

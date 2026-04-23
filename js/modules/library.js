@@ -15,7 +15,7 @@ export const renderBooks = async () => {
   books.forEach((el) => {
     let coverContent;
     if (el.cover) {
-      coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`
+      coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
     } else {
       const hueValue = typeof el.accentHue === 'string'
         ? (el.accentHue.match(/\d+/) ? el.accentHue.match(/\d+/)[0] : 280)
@@ -50,8 +50,8 @@ export const renderBooks = async () => {
             </div>
           </div>
           </div>
-        </div>`
-  })
+        </div>`;
+  });
   container.innerHTML = htmlContent;
-}
+};
 

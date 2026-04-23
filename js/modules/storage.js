@@ -22,7 +22,7 @@ export const saveToDB = async (book) => {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, 'readwrite');
         const store = transaction.objectStore(STORE_NAME);
-        const request = store.put(book);
+        store.put(book);
         transaction.oncomplete = () => {
             resolve(book);
         };
