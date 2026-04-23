@@ -1,7 +1,41 @@
 import { getAllBooks } from './storage.js';
 
+const updateMyLists = (allBooks) => {
+  const setAuthors = new Set();
+  const setSeries = new Set();
+  const setGenres = new Set();
+  const setTropes = new Set();
+
+  allBooks.forEach((book) => {
+    if (book.author) setAuthors.add(book.author.trim().toLowerCase());
+    if (book.series) setSeries.add(book.series.trim().toLowerCase());
+
+    if (book.allGenres) {
+      book.allGenres.forEach(g => setGenres.add(g.trim().toLowerCase()));
+    }
+    if (book.allTropes) {
+      book.allTropes.forEach(t => setTropes.add(t.trim().toLowerCase()));
+    }
+  });
+
+  const listToUpdate = [
+    { element: document.querySelector('#author-list'), data: setAuthors },
+    { element: document.querySelector('#series-list'), data: setSeries },
+    { element: document.querySelector('#genres-list'), data: setGenres },
+    { element: document.querySelector('#tropes-list'), data: setTropes }
+  ];
+
+
+  listToUpdate.forEach(({ element, data }) => {
+    if (element) {
+      element.innerHTML = Array.from(data).map(val => `<option value="${val}">`).join('');
+    }
+  })
+}
+
 export const renderBooks = async () => {
   const books = await getAllBooks();
+  books.reverse();
   const container = document.querySelector('.book-grid');
 
   if (books.length === 0) {
@@ -11,8 +45,14 @@ export const renderBooks = async () => {
     return;
   }
 
+  updateMyLists(books)
+
   let htmlContent = '';
   books.forEach((el) => {
+    const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
+    const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
+
+
     let coverContent;
     if (el.cover) {
       coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
@@ -41,8 +81,8 @@ export const renderBooks = async () => {
                 <div class="new-book_tags">
                   <p class="tag-age new-book_age">${el.age}</p>
                   ${el.series ? "<p class='tag-series new-book_series'>Серия</p>" : ''}
-                  ${el.mainGenres ? el.mainGenres.map(g => `<p class="tag-genre new-book_genre">${g}</p>`).join('') : ''}
-                  ${el.mainTropes ? el.mainTropes.map(t => `<p class="tag-trope new-book_trope">${t}</p>`).join('') : ''}
+                  ${displayGenres.map(g => `<p class="tag-genre new-book_genre">${g}</p>`).join('')}
+                  ${displayTropes.map(t => `<p class="tag-trope new-book_trope">${t}</p>`).join('')}
                   <p class="new-book_status" data-status="${el.status}">${el.statusText}</p>
                 </div>
                 ${el.rating > 0 ? `
@@ -54,4 +94,3 @@ export const renderBooks = async () => {
   });
   container.innerHTML = htmlContent;
 };
-

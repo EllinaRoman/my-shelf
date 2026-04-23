@@ -8,7 +8,7 @@ document.addEventListener('change', (e) => {
         glider.style.width = label.offsetWidth + 'px';
 
         const display = modal.querySelector('.add-book_rating');
-        display.style.display = (e.target.value === "completed") ? 'flex' : 'none';
+        display.classList.toggle('hidden', e.target.value !== 'completed');
         const statusActive = toggle.querySelector('.status-active');
         if (statusActive) {
             statusActive.classList.remove('status-active');
@@ -32,12 +32,13 @@ document.addEventListener('click', (e) => {
             }
         });
         stars.dataset.value = index + 1;
+        stars.closest('.add-book_rating')?.classList.remove('is-invalid');
     }
 });
 
 export const gliderReset = (form) => {
     const overlay = form.closest('.modal-overlay');
-    const firstLabel = overlay.querySelector('label[for="add-reading"]');
+    const firstLabel = overlay.querySelector('label[for="add-future"]');
     if (!firstLabel) return;
 
     const toggle = firstLabel.closest('.status-toggle');
@@ -49,7 +50,7 @@ export const gliderReset = (form) => {
     firstLabel.classList.add('status-active');
 
     const ratingBlock = overlay.querySelector('.add-book_rating');
-    if (ratingBlock) ratingBlock.style.display = 'none';
+    if (ratingBlock) ratingBlock.classList.add('hidden');
 
     const starRating = overlay.querySelector('.star-rating');
     if (starRating) {

@@ -38,7 +38,16 @@ nav {
   cursor: pointer;
 }
 
-.new-book_title, .new-book_author, .tag-age, .tag-series, .tag-genre, .tag-trope, .new-book_status, .new-book_stars, .new-book_no-cover {
+.new-book_title,
+.new-book_author,
+.tag-age,
+.tag-series,
+.tag-genre,
+.tag-trope,
+.new-book_status,
+.new-book_stars,
+.new-book_no-cover,
+.border_nav, .btn_add-book, .btn_change-theme {
   transition:
     background-color 0.4s ease,
     color 0.4s ease,

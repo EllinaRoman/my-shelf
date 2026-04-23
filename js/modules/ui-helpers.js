@@ -9,13 +9,13 @@ bookCoverInput.addEventListener('change', (e) => {
         const reader = new FileReader();
         reader.onload = () => {
             imgPreview.src = reader.result;
-            imgPreview.style.display = "block";
+            imgPreview.classList.remove('hidden');
             label.style.fontSize = '0';
         };
         reader.readAsDataURL(file);
     } else {
         imgPreview.src = "";
-        imgPreview.style.display = "none";
+        imgPreview.classList.add('hidden');
         label.style.fontSize = '';
     }
 });
@@ -23,14 +23,14 @@ bookCoverInput.addEventListener('change', (e) => {
 export const getBookDesign = () => {
     const chance = Math.random() * 100;
     let hue;
-    if (chance < 30) { 
-        hue = Math.floor(Math.random() * 40 + 310); 
-    } else if (chance < 60) { 
-        hue = Math.floor(Math.random() * 50 + 240); 
-    } else if (chance < 85) { 
-        hue = Math.floor(Math.random() * 40 + 180); 
-    } else { 
-        hue = Math.floor(Math.random() * 50 + 80); 
+    if (chance < 25) {
+        hue = Math.floor(Math.random() * 40 + 310);
+    } else if (chance < 50) {
+        hue = Math.floor(Math.random() * 50 + 240);
+    } else if (chance < 75) {
+        hue = Math.floor(Math.random() * 40 + 180);
+    } else {
+        hue = Math.floor(Math.random() * 50 + 80);
     }
     return hue;
 };

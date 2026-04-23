@@ -9,7 +9,7 @@ export const addTag = (input, storage, list, itemClass, textClass, deleteClass) 
     const value = input.value;
     if (value.trim()) {
         storage.push(value);
-        list.style.display = '';
+        list.classList.remove('hidden');
         const newBtn = document.createElement("button");
         newBtn.type = "button";
         newBtn.className = (itemClass);
@@ -32,7 +32,7 @@ export const clickTag = (e, storage, list, activeClass, itemSelector, textSelect
         }
         btn.remove();
         if (storage.length === 0) {
-            list.parentElement.style.display = 'none';
+            list.parentElement.classList.add('hidden');
         }
     } else {
         const mainBtn = e.target.closest(itemSelector);

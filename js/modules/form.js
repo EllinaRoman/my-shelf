@@ -1,33 +1,57 @@
 import { getBookDesign } from './ui-helpers.js';
 import { selectedGenres, selectedTropes } from './tags-trops.js';
 import { listGenre, listTrope } from './tags-trops.js';
-import { saveToDB } from './storage.js';
+import { getAllBooks, saveToDB } from './storage.js';
 import { gliderReset } from './status-glider.js';
 import { renderBooks } from './library.js';
 import { setModalState } from './modals.js';
 
 const formAddBook = document.querySelector('#modal_add-book');
 
-formAddBook.addEventListener('submit', (e) => {
+const toggleError = (input, isValid, message = '') => {
+    const parent = input.closest('.add-book_title-book, .add-book_author-list, .add-book_series-num-list');
+    if (!parent) return;
+    parent.classList.toggle('is-invalid', !isValid);
+    const errorEl = parent.querySelector('.error-message');
+    if (errorEl && message) errorEl.textContent = message;
+
+    return isValid;
+}
+
+['title', 'author', 'series-num'].forEach(name => {
+    const input = formAddBook.querySelector(`[name="${name}"]`);
+    input?.addEventListener('input', () => toggleError(input, true));
+})
+
+formAddBook.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const { title, author, cover } = e.target.elements;
+    const { title, author, cover, series, 'series-num': num } = e.target.elements;
     const starRating = document.querySelector('.star-rating');
     const ratingValue = +starRating.dataset.value || 0;
-    let isValid = true;
-    [title, author].forEach(input => {
-        input.parentElement.classList.remove('is-invalid');
-    });
-    if (!title.value.trim()) {
-        const parent = title.closest('.add-book_title-book');
-        parent.classList.add('is-invalid');
-        isValid = false;
-    }
-    if (!author.value.trim()) {
-        const parent = author.closest('.add-book_author-list');
-        parent.classList.add('is-invalid');
-        isValid = false;
-    }
     const status = new FormData(formAddBook).get('add-status');
+
+    let isValid = true;
+
+    if (!title.value.trim()) isValid = toggleError(title, false);
+    if (!author.value.trim()) isValid = toggleError(author, false);
+
+
+    const seriesValue = series.value.trim();
+    const numValue = num.value.trim();
+
+
+    if (seriesValue) {
+        if (!numValue || +numValue <= 0) {
+            isValid = toggleError(num, false, !numValue ? 'Введите номер серии' : 'Номер должен быть > 0');
+        } else {
+            const allBooks = await getAllBooks();
+            const isDuplicate = allBooks.some(book => book.series?.toLowerCase() === seriesValue.toLowerCase() && book.seriesNum === +numValue);
+            if (isDuplicate) {
+                isValid = toggleError(num, false, 'Номер уже занят')
+            }
+        }
+    }
+
     if (status === 'completed' && ratingValue === 0) {
         starRating.closest('.add-book_rating').classList.add('is-invalid');
         isValid = false;
@@ -36,17 +60,16 @@ formAddBook.addEventListener('submit', (e) => {
 
     if (isValid) {
         const formData = new FormData(formAddBook);
-        const ageValue = formData.get('age').trim();
         const saveBook = async (coverData) => {
             const newBook = {
                 id: Date.now(),
-                title: formData.get('title'),
-                author: formData.get('author'),
+                title: title.value.trim(),
+                author: author.value.trim(),
                 series: formData.get('series'),
-                seriesNum: formData.get('series-num'),
-                age: ageValue === "" ? "0+" : ageValue,
-                annotation: formData.get('annotation'),
-                status: formData.get('add-status'),
+                seriesNum: +formData.get('series-num'),
+                age: formData.get('age').trim() || "0+",
+                annotation: formData.get('annotation').trim() || null,
+                status,
                 statusText: document.querySelector(`label[for="${formAddBook.querySelector('input[name="add-status"]:checked').id}"]`).textContent.trim(),
                 cover: coverData,
                 accentHue: coverData ? null : getBookDesign(),
@@ -56,9 +79,9 @@ formAddBook.addEventListener('submit', (e) => {
                     .map(el => el.querySelector('.text-genre').textContent),
                 mainTropes: Array.from(listTrope.querySelectorAll('.active-trope'))
                     .map(el => el.querySelector('.text-trope').textContent),
-                rating: +document.querySelector('.star-rating').dataset.value || 0,
-                opinion: formData.get('add-opinion'),
-                notes: formData.get('add-notes'),
+                rating: ratingValue,
+                opinion: formData.get('add-opinion').trim() || null,
+                notes: formData.get('add-notes').trim() || null,
             };
             console.log('Объект книги готов:', newBook);
 
@@ -92,15 +115,15 @@ export const resetForm = (form) => {
     const label = overlay.querySelector('.add-book_label-cover');
 
     imgPreview.src = '';
-    imgPreview.style.display = "none";
+    imgPreview.classList.add('hidden');
     label.style.fontSize = '0.8rem';
 
     selectedGenres.length = 0;
     selectedTropes.length = 0;
     listGenre.innerHTML = '';
     listTrope.innerHTML = '';
-    listGenre.parentElement.style.display = 'none';
-    listTrope.parentElement.style.display = 'none';
+    listGenre.parentElement.classList.add('hidden');
+    listTrope.parentElement.classList.add('hidden');
     gliderReset(form);
     setModalState(overlay, false);
 };

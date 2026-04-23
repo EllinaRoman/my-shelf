@@ -70,6 +70,7 @@
   font-weight: 400;
   font-family: var(--main-title-font);
   color: var(--text);
+  text-align: center;
 }
 
 .random-book_main-info {
@@ -84,6 +85,7 @@
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 20px;
+  color: var(--text);
 }
 
 .random-book_book-info {
@@ -95,13 +97,29 @@
   margin-bottom: 10px;
 }
 
-.random-book_cover {
+.random-book_cover, .random-book_no-cover {
   grid-column: 2;
   width: 186px;
   height: 281px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 8px 25px var(--shadow2);
+}
+
+.random-book_no-cover {
+  grid-column: 2;
+  width: 186px;
+  height: 281px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px var(--shadow2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
 }
 
 .random-book_tags {
@@ -169,6 +187,7 @@
   margin-bottom: 8px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  font-style: italic;
 }
 
 .random-book_all-series {

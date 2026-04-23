@@ -19,7 +19,7 @@
   padding: 9px 20px;
   color: var(--main_white);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   background: linear-gradient(135deg, var(--accent2), var(--star-active));
   border-radius: 50px;
   box-shadow: 0 4px 12px var(--shadow);
@@ -222,6 +222,7 @@
   padding: 11px 22px;
   box-shadow: 0 4px 15px var(--shadow2);
   font-size: 0.85rem;
+  border: none;
 }
 
 .btn-delete {
@@ -354,7 +355,7 @@
 .tag-trope,
 .tag-series {
   font-family: var(--main-text-font);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.7rem;
   padding: 3px 9px;
   border-radius: 20px;
@@ -436,7 +437,7 @@
   flex: 1;
   padding: 3px 0;
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 400;
   cursor: pointer;
   color: var(--text);

@@ -1,4 +1,7 @@
 import { resetForm } from './form.js';
+import { getRandomBook } from './randomBook.js';
+import { updateBookStatus } from './storage.js';
+import { renderBooks } from './library.js';
 
 document.addEventListener('click', async (e) => {
     const target = e.target;
@@ -19,14 +22,31 @@ document.addEventListener('click', async (e) => {
         return;
     }
 
-    const openBtn = e.target.closest('[data-modal]');
+    const openBtn = e.target.closest('.btn[data-modal]');
     if (openBtn) {
         const { modal, id } = openBtn.dataset;
 
+        if (modal === 'random-book') {
+            getRandomBook();
+        }
         const overlay = document.querySelector(`.modal-overlay[data-modal="${modal}"]`);
         if (overlay) setModalState(overlay, true);
         return;
     }
+
+    const randomBtn = e.target.closest('.random-book_buttons .btn');
+    if (randomBtn) {
+        randomAction(randomBtn)
+        return;
+    }
+
+    const card = e.target.closest('.new-book[data-modal]');
+    if (card) {
+        const modal = card.dataset.modal;
+        const overlay = document.querySelector(`.modal-overlay[data-modal="${modal}"]`);
+        if (overlay) setModalState(overlay, true);
+    }
+
 });
 
 export const setModalState = (overlay, isOpen) => {
@@ -40,4 +60,19 @@ export const setModalState = (overlay, isOpen) => {
     }
 };
 
+const randomAction = async (btn) => {
+    const { action, id } = btn.dataset;
+    const overlay = btn.closest('.modal-overlay');
+    const bookId = Number(id);
+    if (!bookId) return;
 
+    if (action === 'want') {
+        await updateBookStatus(bookId, 'want');
+    } else if (action === 'future') {
+        await updateBookStatus(bookId, 'future');
+    } else {
+        await updateBookStatus(bookId, 'not-reading');
+    }
+    await renderBooks();
+    setModalState(overlay, false);
+}

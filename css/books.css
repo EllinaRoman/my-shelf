@@ -54,6 +54,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 23px;
+  margin-bottom: 40px;
 }
 
 .no-book {
@@ -127,7 +128,6 @@
     align-items: center;  
     text-align: center;
     padding: 10px;
-    box-sizing: border-box;
 }
 
 .no-cover_title {
