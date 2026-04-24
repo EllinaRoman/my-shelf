@@ -2,13 +2,13 @@ import { getAllBooks } from './storage.js';
 
 const toggleBlock = (el, show) => {
     el.classList.toggle('hidden', !show);
-}
+};
 
 const setTextBlock = (el, value) => {
     const hasValue = !!value;
     el.classList.toggle('hidden', !hasValue);
     el.textContent = hasValue ? value : '';
-}
+};
 
 
 export const getRandomBook = async () => {
@@ -45,7 +45,7 @@ export const getRandomBook = async () => {
         const seriesList = content.querySelector('.random-book_all-series');
         const seriesTitle = content.querySelector('.random-book_series-title');
         seriesTitle.textContent = `Это ${randomBook.seriesNum} книга серии "${randomBook.series}"`;
-        seriesList.innerHTML = sortSeries.map((el, index) => {
+        seriesList.innerHTML = sortSeries.map((el) => {
             const isActive = el.id === randomBook.id;
             const isCompleted = el.status === 'completed' ? '(✓)' : '';
             const numClass = isActive ? 'random-book_main-number' : '';
@@ -58,7 +58,7 @@ export const getRandomBook = async () => {
                     <p
                       class="random-book_series-title-book ${titleClass}"
                     >${el.title} ${isCompleted}</p>
-                  </li> `
+                  </li> `;
         }).join('');
 
     }
@@ -98,5 +98,5 @@ export const getRandomBook = async () => {
 
     randomButtons.forEach(btn => {
         btn.dataset.id = randomBook.id;
-    })
-}
+    });
+};

@@ -2,13 +2,13 @@ import { updateGliderPosition, setStarRating } from './status-glider.js';
 
 const toggleBlock = (el, show) => {
     el.classList.toggle('hidden', !show);
-}
+};
 
 const setTextBlock = (el, value) => {
     const hasValue = !!value;
     el.classList.toggle('hidden', !hasValue);
     el.textContent = hasValue ? value : '';
-}
+};
 
 export const setupEditModal = async (book) => {
     const modal = document.querySelector('.modal-overlay[data-modal="edit-book"]');
@@ -26,7 +26,7 @@ export const setupEditModal = async (book) => {
 
     tags.innerHTML = [
         `<div class="tag-age">${book.age}</div>`,
-        book.series ? `<div class="tag-series">${book.series} ${book.seriesNum}</div>` : '',
+        book.series ? `<div class="tag-series">${book.series} #${book.seriesNum}</div>` : '',
         ...book.allGenres.map(g => `<div class="tag-genre">${g}</div>`),
         ...book.allTropes.map(t => `<div class="tag-trope">${t}</div>`)
     ].join('');
@@ -40,8 +40,8 @@ export const setupEditModal = async (book) => {
         cover.src = book.cover;
     } else {
         noCover.style.setProperty('--book-hue', book.accentHue);
-        noCover.querySelector('.no-cover_author').textContent = book.author;
-        noCover.querySelector('.no-cover_title').textContent = book.title;
+        noCover.querySelector('.edit_no-author').textContent = book.author;
+        noCover.querySelector('.edit_no-title').textContent = book.title;
     }
 
     setTextBlock(annotation, book.annotation);
@@ -76,5 +76,5 @@ export const setupEditModal = async (book) => {
 
     editButtons.forEach(btn => {
         btn.dataset.id = book.id;
-    })
-}
+    });
+};

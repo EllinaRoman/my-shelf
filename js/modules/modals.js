@@ -26,7 +26,7 @@ document.addEventListener('click', async (e) => {
 
     const openBtn = e.target.closest('.btn[data-modal]');
     if (openBtn) {
-        const { modal, id } = openBtn.dataset;
+        const { modal } = openBtn.dataset;
 
         if (modal === 'random-book') {
             getRandomBook();
@@ -38,7 +38,7 @@ document.addEventListener('click', async (e) => {
 
     const randomBtn = e.target.closest('.random-book_buttons .btn');
     if (randomBtn) {
-        randomAction(randomBtn)
+        randomAction(randomBtn);
         return;
     }
 
@@ -48,17 +48,17 @@ document.addEventListener('click', async (e) => {
         const bookId = +confirmOverlay.dataset.bookId;
         await deleteBook(bookId);
         await renderBooks();
-        setModalState(confirmOverlay, false)
+        setModalState(confirmOverlay, false);
 
         const editOverlay = document.querySelector('.modal-overlay[data-modal="edit-book"]');
-        setModalState(editOverlay, false)
+        setModalState(editOverlay, false);
         return;
     }
 
     const confirmCancelBtn = e.target.closest('.btn-confirm-cancel');
     if (confirmCancelBtn) {
         const confirmOverlay = confirmCancelBtn.closest('.modal-overlay');
-        setModalState(confirmOverlay, false)
+        setModalState(confirmOverlay, false);
         return;
     }
 
@@ -107,7 +107,7 @@ export const setModalState = (overlay, isOpen) => {
         const starRating = overlay.querySelector('.star-rating');
         if (starRating) {
             starRating.querySelectorAll('.star-btn').forEach(btn => {
-                btn.classList.remove('star-active')
+                btn.classList.remove('star-active');
             });
             starRating.dataset.value = 0;
         }
@@ -129,7 +129,7 @@ const randomAction = async (btn) => {
     }
     await renderBooks();
     setModalState(overlay, false);
-}
+};
 
 const editAction = async (btn) => {
     const { action, id } = btn.dataset;
@@ -172,4 +172,4 @@ const editAction = async (btn) => {
 
     await renderBooks();
     setModalState(overlay, false);
-}
+};

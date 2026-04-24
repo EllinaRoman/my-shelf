@@ -16,12 +16,12 @@ const toggleError = (input, isValid, message = '') => {
     if (errorEl && message) errorEl.textContent = message;
 
     return isValid;
-}
+};
 
 ['title', 'author', 'series-num'].forEach(name => {
     const input = formAddBook.querySelector(`[name="${name}"]`);
     input?.addEventListener('input', () => toggleError(input, true));
-})
+});
 
 formAddBook.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ formAddBook.addEventListener('submit', async (e) => {
             const allBooks = await getAllBooks();
             const isDuplicate = allBooks.some(book => book.series?.toLowerCase() === seriesValue.toLowerCase() && book.seriesNum === +numValue);
             if (isDuplicate) {
-                isValid = toggleError(num, false, 'Номер уже занят')
+                isValid = toggleError(num, false, 'Номер уже занят');
             }
         }
     }
@@ -108,15 +108,16 @@ formAddBook.addEventListener('submit', async (e) => {
     }
 });
 
+
 export const resetForm = (form) => {
     form.reset();
     const overlay = form.closest('.modal-overlay');
     const imgPreview = overlay.querySelector('.cover-preview');
     const label = overlay.querySelector('.add-book_label-cover');
+    const coverText = label.querySelector('.cover-text');
 
     imgPreview.src = '';
     imgPreview.classList.add('hidden');
-    label.style.fontSize = '0.8rem';
 
     selectedGenres.length = 0;
     selectedTropes.length = 0;

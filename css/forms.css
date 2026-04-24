@@ -65,7 +65,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
 }
 
 .new-book_no-cover, .random-book_no-cover, .edit-book_no-cover {

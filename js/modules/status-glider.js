@@ -13,7 +13,7 @@ export const updateGliderPosition = (toggle, label) => {
         glider.style.top = '';
         glider.style.height = '';
     }
-}
+};
 
 document.addEventListener('change', (e) => {
     const toggle = e.target.closest('.status-toggle');
@@ -80,4 +80,4 @@ export const setStarRating = (container, value) => {
         star.classList.toggle('star-active', i < value);
     });
     starRating.dataset.value = value;
-}
+};

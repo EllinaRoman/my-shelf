@@ -9,10 +9,6 @@
         document.documentElement.dataset.theme = theme;
       })();
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-    <script>
-      eruda.init();
-    </script>
     <title>Книжная полка</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -109,6 +105,7 @@
       </nav>
 
       <div id="book-grid" class="book-grid container"></div>
+      <div id="all-shelves" class="all-shelves container"></div>
     </main>
 
     <div class="modal_group">
@@ -181,8 +178,8 @@
             <div class="edit-book_main-info">
               <img class="edit-book_cover" src="" alt="Обложка книги" />
               <div class="edit-book_no-cover hidden">
-                <p class="no-cover_title"></p>
-                <p class="no-cover_author"></p>
+                <p class="edit_no-title"></p>
+                <p class="edit_no-author"></p>
               </div>
               <div class="edit-book_book-info">
                 <h3 class="edit-book_title"></h3>
@@ -317,10 +314,10 @@
               </div>
               <div class="add-book_info">
                 <label class="add-book_label-cover" for="add-book_cover"
-                  >Загрузить обложку<img
+                  ><span class="cover-text">Загрузить обложку</span><img
                     src=""
                     alt="Preview"
-                    class="cover-preview"
+                    class="cover-preview hidden"
                 /></label>
                 <input
                   type="file"

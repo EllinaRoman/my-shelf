@@ -114,7 +114,7 @@
 .random-book_no-cover {
   grid-column: 2;
   width: 186px;
-  height: 281px;
+  height: 279px;
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 8px 25px var(--shadow2);

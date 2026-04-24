@@ -18,7 +18,7 @@ document.addEventListener('change', async (e) => {
     if (field) {
         filterRun(allBooks, field, e.target.value);
     }
-})
+});
 
 searchInput.addEventListener('input', async (e) => {
     const allBooks = await getAllBooks();
@@ -29,7 +29,7 @@ searchInput.addEventListener('input', async (e) => {
     } else {
         displayBooks(allBooks);
     }
-})
+});
 
 const filterRun = (allBooks, field, value, exact = true) => {
     if (value === "all") {
@@ -43,4 +43,4 @@ const filterRun = (allBooks, field, value, exact = true) => {
         );
         displayBooks(newBooks);
     }
-}
+};

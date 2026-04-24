@@ -130,7 +130,11 @@
     padding: 35px 10px 10px 10px;
 }
 
-.no-cover_title {
+.edit-book_no-cover {
+  padding: 7px 9px;
+}
+
+.no-cover_title, .edit_no-title {
   font-family: var(--main-title-font);
   font-size: 1.7rem;
   color: var(--no-cover-text);
@@ -141,13 +145,22 @@
   display: flex;
 }
 
-.no-cover_author {
+.no-cover_author, .edit_no-author {
   font-family: var(--main-text-font);
   font-weight: 600;
   color: var(--no-cover-text);
   font-size: 0.9rem;
 }
 
+.edit_no-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.edit_no-author {
+  font-weight: 400;
+  font-size: 0.6rem;
+}
 
 
 /* ==============================
@@ -163,7 +176,7 @@
   font-family: var(--main-title-font);
   font-size: 1.1rem;
   color: var(--text);
-  letter-spacing: 130%;
+  letter-spacing: 0.05em;
   font-weight: 600;
 }
 

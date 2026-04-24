@@ -34,9 +34,10 @@ const updateMyLists = (allBooks) => {
         isSelect ? `<option value="${val}">${val}</option>` : `<option value="${val}">`
       ).join('');
     }
-  })
+  });
 
-}
+};
+
 
 export const displayBooks = (books) => {
   const container = document.querySelector('.book-grid');
@@ -51,13 +52,10 @@ export const displayBooks = (books) => {
       return;
     }
 
-
-
     let htmlContent = '';
     books.forEach((el) => {
       const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
       const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
-
 
       let coverContent;
       if (el.cover) {
@@ -101,11 +99,11 @@ export const displayBooks = (books) => {
     container.innerHTML = htmlContent;
     container.style.opacity = '1';
   }, 200);
-}
+};
 
 export const renderBooks = async () => {
   const books = await getAllBooks();
   books.reverse();
-  updateMyLists(books)
+  updateMyLists(books);
   displayBooks(books);
 };
