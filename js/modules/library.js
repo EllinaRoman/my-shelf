@@ -22,53 +22,59 @@ const updateMyLists = (allBooks) => {
     { element: document.querySelector('#author-list'), data: setAuthors },
     { element: document.querySelector('#series-list'), data: setSeries },
     { element: document.querySelector('#genres-list'), data: setGenres },
-    { element: document.querySelector('#tropes-list'), data: setTropes }
+    { element: document.querySelector('#tropes-list'), data: setTropes },
+    { element: document.querySelector('#author_filter'), data: setAuthors, isSelect: true },
+    { element: document.querySelector('#series_filter'), data: setSeries, isSelect: true },
   ];
 
-
-  listToUpdate.forEach(({ element, data }) => {
+  listToUpdate.forEach(({ element, data, isSelect }) => {
     if (element) {
-      element.innerHTML = Array.from(data).map(val => `<option value="${val}">`).join('');
+      const firstOption = isSelect ? '<option value="all">Все</option>' : '';
+      element.innerHTML = firstOption + Array.from(data).map(val =>
+        isSelect ? `<option value="${val}">${val}</option>` : `<option value="${val}">`
+      ).join('');
     }
   })
+
 }
 
-export const renderBooks = async () => {
-  const books = await getAllBooks();
-  books.reverse();
+export const displayBooks = (books) => {
   const container = document.querySelector('.book-grid');
+  container.style.opacity = '0';
 
-  if (books.length === 0) {
-    container.innerHTML = `<div class="no-book">
-          <span class="icon">📭</span>Книги не найдены. Добавьте первую!
-      </div>`;
-    return;
-  }
-
-  updateMyLists(books)
-
-  let htmlContent = '';
-  books.forEach((el) => {
-    const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
-    const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
+  setTimeout(() => {
+    if (books.length === 0) {
+      container.innerHTML = `<div class="no-book">
+            <span class="icon">📭</span>Книги не найдены. Добавьте первую!
+        </div>`;
+      container.style.opacity = '1';
+      return;
+    }
 
 
-    let coverContent;
-    if (el.cover) {
-      coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
-    } else {
-      const hueValue = typeof el.accentHue === 'string'
-        ? (el.accentHue.match(/\d+/) ? el.accentHue.match(/\d+/)[0] : 280)
-        : (el.accentHue || 280);
 
-      coverContent = `
+    let htmlContent = '';
+    books.forEach((el) => {
+      const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
+      const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
+
+
+      let coverContent;
+      if (el.cover) {
+        coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
+      } else {
+        const hueValue = typeof el.accentHue === 'string'
+          ? (el.accentHue.match(/\d+/) ? el.accentHue.match(/\d+/)[0] : 280)
+          : (el.accentHue || 280);
+
+        coverContent = `
         <div class="new-book_no-cover" style="--book-hue: ${hueValue}">
-            <p class="no-cover_author">${el.author}</p>
             <p class="no-cover_title">${el.title}</p>
+            <p class="no-cover_author">${el.author}</p>
         </div>
     `;
-    }
-    htmlContent += `<div class="new-book" data-status="${el.status}" data-id="${el.id}" data-modal="edit-book">
+      }
+      htmlContent += `<div class="new-book" data-status="${el.status}" data-id="${el.id}" data-modal="edit-book">
           <div class="new-book_bar"></div>
           <div class="new-book_main">
             ${coverContent}
@@ -91,6 +97,15 @@ export const renderBooks = async () => {
           </div>
           </div>
         </div>`;
-  });
-  container.innerHTML = htmlContent;
+    });
+    container.innerHTML = htmlContent;
+    container.style.opacity = '1';
+  }, 200);
+}
+
+export const renderBooks = async () => {
+  const books = await getAllBooks();
+  books.reverse();
+  updateMyLists(books)
+  displayBooks(books);
 };

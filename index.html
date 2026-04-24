@@ -61,6 +61,11 @@
             >
             <select class="filter-select" id="age_filter">
               <option value="all">Все</option>
+              <option value="0+">0+</option>
+              <option value="6+">6+</option>
+              <option value="12+">12+</option>
+              <option value="16+">16+</option>
+              <option value="18+">18+</option>
             </select>
           </div>
           <div class="author_group filter-group">
@@ -120,11 +125,10 @@
                   alt="Обложка книги"
                 />
                 <div class="random-book_no-cover hidden">
-                  <p class="no-cover_author"></p>
                   <p class="no-cover_title"></p>
+                  <p class="no-cover_author"></p>
                 </div>
-                <div class="random-book_tags">
-                </div>
+                <div class="random-book_tags"></div>
               </div>
               <div class="random-book_text">
                 <p class="random-book_book-title"></p>
@@ -133,18 +137,29 @@
               </div>
               <div class="random-book_series-group hidden">
                 <p class="random-book_series-title"></p>
-                <ul class="random-book_all-series">
-                </ul>
+                <ul class="random-book_all-series"></ul>
               </div>
             </div>
             <div class="random-book_buttons">
-              <button type="button" class="btn btn_random-book_want" data-action="want">
+              <button
+                type="button"
+                class="btn btn_random-book_want"
+                data-action="want"
+              >
                 💜 Хочу прочитать
               </button>
-              <button type="button" class="btn btn_random-book_future" data-action="future">
+              <button
+                type="button"
+                class="btn btn_random-book_future"
+                data-action="future"
+              >
                 🌟 На будущее
               </button>
-              <button type="button" class="btn btn_random-book_nope" data-action="nope">
+              <button
+                type="button"
+                class="btn btn_random-book_nope"
+                data-action="nope"
+              >
                 🚫 Не буду читать
               </button>
             </div>
@@ -159,65 +174,63 @@
             <img src="./img/Vector 2.svg" alt="Кнопка закрыть" class="close" />
           </button>
           <div class="edit-book_all-info">
-          <div class="edit-book_main-info">
-            <img class="edit-book_cover" src="" alt="Обложка книги" />
-            <div class="edit-book_no-cover hidden">
-                  <p class="no-cover_author"></p>
-                  <p class="no-cover_title"></p>
-                </div>
-            <div class="edit-book_book-info">
-              <h3 class="edit-book_title"></h3>
-              <p class="edit-book_author"></p>
-              <p class="edit-book_book-annotation">
-              </p>
+            <div class="edit-book_main-info">
+              <img class="edit-book_cover" src="" alt="Обложка книги" />
+              <div class="edit-book_no-cover hidden">
+                <p class="no-cover_title"></p>
+                <p class="no-cover_author"></p>
+              </div>
+              <div class="edit-book_book-info">
+                <h3 class="edit-book_title"></h3>
+                <p class="edit-book_author"></p>
+                <p class="edit-book_book-annotation"></p>
+              </div>
             </div>
-          </div>
-          <div class="edit-book_tags">
-          </div>
-          <div class="status-book_group">
-            <label class="book-label">Статус</label>
-            <div class="status-toggle">
-              <input
-                type="radio"
-                name="edit-status"
-                id="edit-future"
-                value="future"
-                checked
-              />
-              <input
-                type="radio"
-                name="edit-status"
-                id="edit-reading"
-                value="reading"
-              />
-              <input
-                type="radio"
-                name="edit-status"
-                id="edit-completed"
-                value="completed"
-              />
-              <input
-                type="radio"
-                name="edit-status"
-                id="edit-want"
-                value="want"
-              />
-              <input
-                type="radio"
-                name="edit-status"
-                id="edit-nope"
-                value="not-reading"
-              />
+            <div class="edit-book_tags"></div>
+            <div class="status-book_group">
+              <label class="book-label">Статус</label>
+              <div class="status-toggle">
+                <input
+                  type="radio"
+                  name="edit-status"
+                  id="edit-future"
+                  value="future"
+                  checked
+                />
+                <input
+                  type="radio"
+                  name="edit-status"
+                  id="edit-reading"
+                  value="reading"
+                />
+                <input
+                  type="radio"
+                  name="edit-status"
+                  id="edit-completed"
+                  value="completed"
+                />
+                <input
+                  type="radio"
+                  name="edit-status"
+                  id="edit-want"
+                  value="want"
+                />
+                <input
+                  type="radio"
+                  name="edit-status"
+                  id="edit-nope"
+                  value="not-reading"
+                />
 
-              <label for="edit-future" class="status-active">Потом</label>
-              <label for="edit-reading">Читаю</label>
-              <label for="edit-completed">Прочитано</label>
-              <label for="edit-want">Хочу</label>
-              <label for="edit-nope">Не буду</label>
+                <label for="edit-future" class="status-active">Потом</label>
+                <label for="edit-reading">Читаю</label>
+                <label for="edit-completed">Прочитано</label>
+                <label for="edit-want">Хочу</label>
+                <label for="edit-nope">Не буду</label>
 
-              <div class="status-glider"></div>
+                <div class="status-glider"></div>
+              </div>
             </div>
-          </div>
           </div>
 
           <div class="book-rating_group hidden">
@@ -254,8 +267,25 @@
           </div>
 
           <div class="edit-book_controls">
-            <button type="button" class="btn btn-delete" data-action="delete">🗑 Удалить</button>
-            <button type="button" class="btn btn-save" data-action="save">Сохранить</button>
+            <button type="button" class="btn btn-delete" data-action="delete">
+              🗑 Удалить
+            </button>
+            <button type="button" class="btn btn-save" data-action="save">
+              Сохранить
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Модалка подтверждения удаления -->
+      <div class="modal-overlay" data-modal="confirm-delete">
+        <div class="modal_confirm-delete">
+          <p class="confirm-delete_text">Удалить книгу с полки?</p>
+          <div class="confirm-delete_controls">
+            <button type="button" class="btn btn-confirm-cancel">Отмена</button>
+            <button type="button" class="btn btn-confirm-delete">
+              Удалить
+            </button>
           </div>
         </div>
       </div>
@@ -336,21 +366,13 @@
                     <label class="book-label" for="age"
                       >Возрастное ограничение</label
                     >
-                    <input
-                      type="text"
-                      name="age"
-                      id="age"
-                      list="age-list"
-                      class="add-book_field"
-                      placeholder="0+"
-                    />
-                    <datalist id="age-list">
-                      <option value="0+"></option>
-                      <option value="6+"></option>
-                      <option value="12+"></option>
-                      <option value="16+"></option>
-                      <option value="18+"></option>
-                    </datalist>
+                    <select id="age" name="age" class="add-book_field">
+                      <option value="0+">0+</option>
+                      <option value="6+">6+</option>
+                      <option value="12+">12+</option>
+                      <option value="16+">16+</option>
+                      <option value="18+">18+</option>
+                    </select>
                   </div>
                 </div>
               </div>

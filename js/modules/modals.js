@@ -1,6 +1,6 @@
 import { resetForm } from './form.js';
 import { getRandomBook } from './randomBook.js';
-import { updateBookStatus,  deleteBook, updateFullBook, getAllBooks } from './storage.js';
+import { updateBookStatus, deleteBook, updateFullBook, getAllBooks } from './storage.js';
 import { renderBooks } from './library.js';
 import { updateGliderPosition } from './status-glider.js';
 import { setupEditModal } from './editBook.js';
@@ -42,6 +42,26 @@ document.addEventListener('click', async (e) => {
         return;
     }
 
+    const confirmDeleteBtn = e.target.closest('.btn-confirm-delete');
+    if (confirmDeleteBtn) {
+        const confirmOverlay = confirmDeleteBtn.closest('.modal-overlay');
+        const bookId = +confirmOverlay.dataset.bookId;
+        await deleteBook(bookId);
+        await renderBooks();
+        setModalState(confirmOverlay, false)
+
+        const editOverlay = document.querySelector('.modal-overlay[data-modal="edit-book"]');
+        setModalState(editOverlay, false)
+        return;
+    }
+
+    const confirmCancelBtn = e.target.closest('.btn-confirm-cancel');
+    if (confirmCancelBtn) {
+        const confirmOverlay = confirmCancelBtn.closest('.modal-overlay');
+        setModalState(confirmOverlay, false)
+        return;
+    }
+
     const editBtn = e.target.closest('.edit-book_controls .btn');
     if (editBtn) {
         editAction(editBtn);
@@ -61,7 +81,6 @@ document.addEventListener('click', async (e) => {
             if (overlay) setModalState(overlay, true);
         }
     }
-    return;
 });
 
 export const setModalState = (overlay, isOpen) => {
@@ -85,6 +104,14 @@ export const setModalState = (overlay, isOpen) => {
         overlay.querySelectorAll('.is-invalid').forEach(el => {
             el.classList.remove('is-invalid');
         });
+
+        const starRating = overlay.querySelector('.star-rating');
+        if (starRating) {
+            starRating.querySelectorAll('.star-btn').forEach(btn => {
+                btn.classList.remove('star-active')
+            });
+            starRating.dataset.value = 0;
+        }
     }
 };
 
@@ -112,7 +139,10 @@ const editAction = async (btn) => {
     if (!bookId) return;
 
     if (action === 'delete') {
-        await deleteBook(bookId);
+        const confirmOverlay = document.querySelector('.modal-overlay[data-modal="confirm-delete"]');
+        confirmOverlay.dataset.bookId = bookId;
+        setModalState(confirmOverlay, true);
+        return;
     } else {
         const allBooks = await getAllBooks();
         const book = allBooks.find(b => b.id === bookId);

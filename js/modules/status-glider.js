@@ -1,13 +1,12 @@
 export const updateGliderPosition = (toggle, label) => {
     const glider = toggle.querySelector('.status-glider');
     const isVertical = window.getComputedStyle(toggle).flexDirection === 'column';
-    const GAP = 4;
 
     if (isVertical) {
-        glider.style.top = label.offsetTop + 'px';
-        glider.style.left = '0';
-        glider.style.height = label.offsetHeight + 'px';
-        glider.style.width = '100%';
+        glider.style.top = (label.offsetTop + 4) + 'px';
+        glider.style.left = '';
+        glider.style.height = (label.offsetHeight - 8) + 'px';
+        glider.style.width = '';
     } else {
         glider.style.left = label.offsetLeft + 'px';
         glider.style.width = label.offsetWidth + 'px';

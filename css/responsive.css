@@ -323,11 +323,16 @@
   }
 
   .status-glider {
-    transition: height 0.3s ease; 
+    transition: height 0.3s ease;
+    width: calc(100% - 8px);
+    transition:
+      top 0.3s ease,
+      height 0.3s ease;
   }
 
   .status-toggle label {
     white-space: nowrap;
+    padding: 8px 0;
   }
 
   .header_container {

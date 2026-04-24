@@ -1,5 +1,4 @@
 import { updateGliderPosition, setStarRating } from './status-glider.js';
-import { getAllBooks } from './storage.js';
 
 const toggleBlock = (el, show) => {
     el.classList.toggle('hidden', !show);
@@ -66,6 +65,11 @@ export const setupEditModal = async (book) => {
             setStarRating(modal, book.rating);
         }
     }
+
+    const opinion = modal.querySelector('#edit-opinion');
+    const notes = modal.querySelector('#edit-notes');
+    if (opinion) opinion.value = book.opinion || '';
+    if (notes) notes.value = book.notes || '';
 
 
     const editButtons = modal.querySelectorAll('.edit-book_controls .btn');

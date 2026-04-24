@@ -121,13 +121,13 @@
   flex-shrink: 0;
 }
 
-.new-book_no-cover {
+.new-book_no-cover, .edit-book_no-cover {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;  
     text-align: center;
-    padding: 10px;
+    padding: 35px 10px 10px 10px;
 }
 
 .no-cover_title {
@@ -136,7 +136,6 @@
   color: var(--no-cover-text);
   letter-spacing: 130%;
   font-weight: 800;
-  flex: 1;
   align-items: center;
   justify-content: center;
   display: flex;

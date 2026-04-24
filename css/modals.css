@@ -34,7 +34,8 @@
 
 .modal_random-book,
 .modal_edit-book,
-.modal_add-book {
+.modal_add-book,
+.modal_confirm-delete {
   position: relative;
   width: 100%;
   padding: 36px;
@@ -43,10 +44,14 @@
   border: 1px solid var(--card-border);
   box-shadow: 0 20px 60px var(--shadow2);
   max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal_random-book {
   max-width: 480px;
+  height: auto;
+  align-self: flex-start;
+  margin: auto;
 }
 
 .modal_edit-book {
@@ -55,7 +60,6 @@
 
 .modal_add-book {
   max-width: 620px;
-  overflow-y: auto;
 }
 
 /* ==============================
@@ -97,7 +101,8 @@
   margin-bottom: 10px;
 }
 
-.random-book_cover, .random-book_no-cover {
+.random-book_cover,
+.random-book_no-cover {
   grid-column: 2;
   width: 186px;
   height: 281px;
@@ -116,10 +121,10 @@
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 10px;
+  padding: 35px 10px 10px 10px;
 }
 
 .random-book_tags {
@@ -245,7 +250,8 @@
   gap: 12px;
 }
 
-.edit-book_cover, .edit-book_no-cover {
+.edit-book_cover,
+.edit-book_no-cover {
   width: 114px;
   height: 171px;
   object-fit: cover;
@@ -312,6 +318,29 @@
 }
 
 .edit-book_controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* ==============================
+   @DELETE_MODAL
+   ============================== */
+
+.confirm-delete_text {
+  font-family: var(--main-text-font);
+  font-size: 1rem;
+  color: var(--text);
+  text-align: center;
+}
+
+.confirm-delete_controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.confirm-delete_controls {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;

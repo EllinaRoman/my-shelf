@@ -95,6 +95,9 @@
   font-size: 0.85rem;
   outline: none;
   background-color: var(--card);
+
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .search_filter:hover,
@@ -141,6 +144,11 @@
 
 .add-book_field {
   padding: 12px 0 12px 16px;
+}
+
+select.add-book_field {
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .book-textarea::placeholder,
@@ -225,7 +233,8 @@
   border: none;
 }
 
-.btn-delete {
+.btn-delete,
+.btn-confirm-delete {
   font-family: var(--main-text-font);
   font-weight: 600;
   font-size: 0.85rem;
@@ -249,7 +258,8 @@
   box-shadow: 0 4px 15px var(--shadow2);
 }
 
-.btn_add-book_cancel {
+.btn_add-book_cancel,
+.btn-confirm-cancel {
   font-family: var(--main-text-font);
   font-weight: 600;
   font-size: 0.85rem;
@@ -276,7 +286,8 @@
   background-color: var(--accent3);
 }
 
-.btn_add-book_cancel:hover {
+.btn_add-book_cancel:hover,
+.btn-confirm-cancel:hover {
   background-color: var(--accent2);
   color: var(--main_white);
   border-color: var(--accent2);
@@ -287,7 +298,8 @@
   transform: translateY(-2px);
 }
 
-.btn-delete:hover {
+.btn-delete:hover,
+.btn-confirm-delete:hover {
   background-color: var(--nope);
   color: var(--main_white);
 }
@@ -296,7 +308,9 @@
 .btn-save:active,
 .btn_add-book_cancel:active,
 .btn_add-book_add:active,
-.btn_add-tag:active {
+.btn_add-tag:active,
+.btn-confirm-cancel:active,
+.btn-confirm-delete:active {
   transform: scale(0.97);
 }
 
