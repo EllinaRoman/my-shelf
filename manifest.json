@@ -1,0 +1,22 @@
+{
+  "short_name": "Полка",
+  "name": "My Shelf",
+  "description": "Моя книжная полка для отслеживания чтения",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/my-shelf/",
+  "background_color": "#1a1a1a",
+  "display": "standalone",
+  "scope": "/my-shelf/",
+  "theme_color": "#ff0055"
+}
