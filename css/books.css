@@ -134,7 +134,7 @@
   font-family: var(--main-title-font);
   font-size: 1.7rem;
   color: var(--no-cover-text);
-  letter-spacing: 130%;
+  letter-spacing: 0.05em;
   font-weight: 800;
   align-items: center;
   justify-content: center;
