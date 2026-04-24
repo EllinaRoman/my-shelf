@@ -323,7 +323,6 @@
   }
 
   .status-glider {
-    transition: height 0.3s ease;
     width: calc(100% - 8px);
     transition:
       top 0.3s ease,

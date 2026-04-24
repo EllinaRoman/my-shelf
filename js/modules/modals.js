@@ -73,7 +73,6 @@ document.addEventListener('click', async (e) => {
         const bookId = +card.dataset.id;
         const allBooks = await getAllBooks();
         const foundBook = allBooks.find(b => b.id === bookId);
-        const modal = card.dataset.modal;
 
         if (foundBook) {
             await setupEditModal(foundBook);
