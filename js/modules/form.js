@@ -83,11 +83,9 @@ formAddBook.addEventListener('submit', async (e) => {
                 opinion: formData.get('add-opinion').trim() || null,
                 notes: formData.get('add-notes').trim() || null,
             };
-            console.log('Объект книги готов:', newBook);
 
             try {
                 await saveToDB(newBook);
-                console.log('Книга успешно сохранена в IndexedDB!');
                 renderBooks();
             } catch (err) {
                 console.error('Ошибка при сохранении в базу:', err);

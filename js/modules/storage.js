@@ -1,53 +1,47 @@
-const DB_NAME = 'LibraryDB';
+import { db } from './firebase-init.js';
+import { 
+    doc, 
+    setDoc, 
+    getDocs, 
+    collection, 
+    deleteDoc, 
+    query, 
+    orderBy 
+} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
+
 const STORE_NAME = 'books';
 
-
-const initDB = () => {
-    return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, 1);
-        request.onupgradeneeded = (e) => {
-            const db = e.target.result;
-            if (!db.objectStoreNames.contains(STORE_NAME)) {
-                db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-            }
-        };
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
-    });
-};
-
-
 export const saveToDB = async (book) => {
-    const db = await initDB();
-    return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
-        store.put(book);
-        transaction.oncomplete = () => {
-            resolve(book);
-        };
-        transaction.onerror = () => reject(transaction.error);
-    });
+    await setDoc(doc(db, STORE_NAME, String(book.id)), book);
+    return book;
 };
 
 export const getAllBooks = async () => {
-    const db = await initDB();
-    return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readonly');
-        const store = transaction.objectStore(STORE_NAME);
-        const request = store.getAll();
-        request.onsuccess = () => resolve(request.result);
-        request.onerror = () => reject(request.error);
+    const q = query(collection(db, STORE_NAME), orderBy("id", "desc"));
+    const querySnapshot = await getDocs(q);
+    
+    const books = [];
+    querySnapshot.forEach((doc) => {
+        books.push(doc.data());
     });
+    return books;
 };
 
-export const updateBookStatus = async (id, newStatus) => {
-    const db = await initDB();
-    return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
+export const deleteBook = async (id) => {
+    await deleteDoc(doc(db, STORE_NAME, String(id)));
+};
 
-        const getRequest = store.get(id);
+export const updateFullBook = async (updatedBook) => {
+    return await saveToDB(updatedBook);
+};
+
+
+export const updateBookStatus = async (id, newStatus) => {
+    const allBooks = await getAllBooks();
+    const book = allBooks.find(b => b.id === id || String(b.id) === String(id));
+    
+    if (book) {
+        book.status = newStatus;
 
         const statusTextMap = {
             'want': 'Хочу',
@@ -56,44 +50,9 @@ export const updateBookStatus = async (id, newStatus) => {
             'reading': 'Читаю',
             'completed': 'Прочитано',
         };
-
-        getRequest.onsuccess = () => {
-            const book = getRequest.result;
-            if (book) {
-                book.status = newStatus;
-                book.statusText = statusTextMap[newStatus] || newStatus;
-                store.put(book);
-            }
-        };
-
-        transaction.oncomplete = () => resolve();
-        transaction.onerror = () => reject(transaction.error);
-    });
-};
-
-export const deleteBook = async (id) => {
-    const db = await initDB();
-    return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
         
-        const request = store.delete(id); // Вот она, команда удаления
-
-        request.onsuccess = () => resolve();
-        transaction.onerror = () => reject(transaction.error);
-    });
-};
-
-
-export const updateFullBook = async (updatedBook) => {
-    const db = await initDB();
-    return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        const store = transaction.objectStore(STORE_NAME);
-
-        store.put(updatedBook);
-
-        transaction.oncomplete = () => resolve(updatedBook);
-        transaction.onerror = () => reject(transaction.error);
-    });
+        book.statusText = statusTextMap[newStatus] || newStatus;
+        
+        return await saveToDB(book);
+    }
 };
