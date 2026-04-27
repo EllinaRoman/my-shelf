@@ -8,8 +8,8 @@ const activeFilters = {
     author: 'all',
     age: 'all',
     series: 'all',
-    genres: 'all',
-    tropes: 'all',
+    genre: 'all',
+    trope: 'all',
     title: ''
 };
 
@@ -22,12 +22,14 @@ const fieldMap = {
     'tropes_filter': 'trope'
 };
 
+const normalizeFilterValue = (value) => String(value ?? '').trim();
+
 const applyFilters = (allBooks) => {
     let result = allBooks;
 
-    Object.entries(fieldMap).forEach(([_, filterKey]) => {
-        const filterValue = activeFilters[filterKey];
-        if (filterValue !== 'all') {
+    Object.values(fieldMap).forEach((filterKey) => {
+        const filterValue = normalizeFilterValue(activeFilters[filterKey]).toLowerCase();
+        if (filterValue && filterValue !== 'all') {
             if (filterKey === 'genre' || filterKey === 'trope') {
                 const bookField = filterKey === 'genre' ? 'allGenres' : 'allTropes';
                 result = result.filter(book => book[bookField]?.some(item => item.toLowerCase() === filterValue.toLowerCase()));
@@ -49,7 +51,8 @@ document.addEventListener('change', async (e) => {
     const filterKey = fieldMap[e.target.id];
 
     if (filterKey) {
-        activeFilters[filterKey] = e.target.value;
+        const value = normalizeFilterValue(e.target.value).toLowerCase();
+        activeFilters[filterKey] = value === 'all' || !value ? 'all' : value;
         applyFilters(allBooks);
     }
 });
