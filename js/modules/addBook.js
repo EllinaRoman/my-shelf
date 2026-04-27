@@ -108,24 +108,47 @@ formAddBook.addEventListener('submit', async (e) => {
 
 
 export const resetForm = (form) => {
-    form.reset();
-    const overlay = form.closest('.modal-overlay');
-    const imgPreview = overlay.querySelector('.cover-preview');
-    const label = overlay.querySelector('.add-book_label-cover');
-    const coverText = label.querySelector('.cover-text');
+    if (!form) return;
 
-    imgPreview.src = '';
-    imgPreview.classList.add('hidden');
-    if (coverText) {
-        coverText.classList.remove('hidden');
+    form.reset();
+
+    const overlay = form.closest('.modal-overlay');
+    const label = overlay?.querySelector('.add-book_label-cover');
+
+
+    if (overlay) {
+        const imgPreview = overlay?.querySelector('.cover-preview');
+        if (imgPreview) {
+            imgPreview.src = '';
+            imgPreview.classList.add('hidden');
+        }
+
+        const coverText = label?.querySelector('.cover-text');
+        if (coverText) {
+            coverText.classList.remove('hidden');
+        }
+
+        if (typeof setModalState === 'function') {
+            setModalState(overlay, false);
+        }
     }
 
-    selectedGenres.length = 0;
-    selectedTropes.length = 0;
-    listGenre.innerHTML = '';
-    listTrope.innerHTML = '';
-    listGenre.parentElement.classList.add('hidden');
-    listTrope.parentElement.classList.add('hidden');
-    gliderReset(form);
-    setModalState(overlay, false);
+    if (typeof selectedGenres !== 'undefined') selectedGenres.length = 0;
+    if (typeof selectedTropes !== 'undefined') selectedTropes.length = 0;
+
+    const lists = [
+        { el: typeof listGenre !== 'undefined' ? listGenre : null },
+        { el: typeof listTrope !== 'undefined' ? listTrope : null }
+    ];
+
+    lists.forEach(item => {
+        if (item.el) {
+            item.el.innerHTML = '';
+            item.el.parentElement?.classList.add('hidden');
+        }
+    });
+
+    if (typeof gliderReset === 'function') {
+        gliderReset(form);
+    }
 };

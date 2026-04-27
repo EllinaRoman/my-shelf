@@ -14,9 +14,9 @@ document.addEventListener('click', async (e) => {
     if (isCloseBtn || isCancelBtn || isOverlayClick) {
         const overlay = isOverlayClick ? target : target.closest('.modal-overlay');
         if (overlay) {
-            const form = overlay.querySelector('form');
-            if (form) {
-                resetForm(form);
+            const form = overlay.querySelectorAll('form');
+            if (form.length > 0) {
+                form.forEach(f => resetForm(f));
             } else {
                 setModalState(overlay, false);
             }
