@@ -50,7 +50,7 @@ export const clickTag = (e, storage, list, activeClass, itemSelector, textSelect
 
 
 btnAddGenres.addEventListener('click', () => {
-    const input = document.querySelector('.add-book_new-genre');
+    const input = document.querySelector('#genres');
     const container = document.querySelector('.add-genre');
     addTag(input, selectedGenres, container, 'btn genre-btn tag-genre', 'text-genre', 'delete-genre');
 });
@@ -61,7 +61,7 @@ listGenre.addEventListener('click', (e) => {
 
 
 btnAddTropes.addEventListener('click', () => {
-    const input = document.querySelector('.add-book_new-trope');
+    const input = document.querySelector('#tropes');
     const container = document.querySelector('.add-trope');
     addTag(input, selectedTropes, container, 'btn trope-btn tag-trope', 'text-trope', 'delete-trope');
 });
