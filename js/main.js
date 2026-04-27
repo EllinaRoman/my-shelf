@@ -14,14 +14,23 @@ import './modules/editBook.js';
 
 import { renderBooks } from './modules/library.js';
 import { subscribeToAuthChanges } from './modules/storage.js';
+import { auth, onAuthStateChanged } from './modules/firebase-init.js';
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-            .then(() => {})
+            .then(() => { })
             .catch(err => console.error('Ошибка SW:', err));
     });
 }
+
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("Авторизован как:", user.email);
+    } else {
+        console.log("Пользователь не залогинен");
+    }
+});
 
 subscribeToAuthChanges(async () => {
     await renderBooks();
