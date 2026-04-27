@@ -8,37 +8,21 @@ import {
 import { auth, googleProvider } from './firebase-init.js';
 
 const registerUser = async (email, password) => {
-    try {
         await createUserWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-        throw error;
-    }
-}
+};
 
 const loginUser = async (email, password) => {
-    try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('Залогинен:', userCredential.user.email);
-    } catch (error) {
-        throw error;
-    }
-}
+};
 
 const loginWithGoogle = async () => {
-    try {
         await signInWithPopup(auth, googleProvider);
-    } catch (error) {
-        throw error;
-    }
-}
+};
 
 const logoutUser = async () => {
-    try {
         await signOut(auth);
-    } catch (error) {
-        throw error;
-    }
-}
+};
 
 export { registerUser, loginUser, logoutUser, loginWithGoogle };
 
@@ -59,7 +43,7 @@ loginRegisterForm.addEventListener('change', (e) => {
         document.querySelector('.login-form').classList.add('hidden');
         document.querySelector('.register-form').classList.remove('hidden');
     }
-})
+});
 
 const formLogin = document.querySelector('.login');
 const formRegister = document.querySelector('.register');
@@ -94,7 +78,7 @@ addClearListeners(formRegister, [
 formLogin.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = e.target.elements['email-login'];
-    const password = e.target.elements['password-login']
+    const password = e.target.elements['password-login'];
 
     if (!email.value.includes('@')) {
         showError(formLogin, '.login-email', 'Введите валидный email');
@@ -105,7 +89,7 @@ formLogin.addEventListener('submit', async (e) => {
         await loginUser(email.value, password.value);
     } catch (error) {
         if (error.code === 'auth/invalid-credential') {
-            showError(formLogin, '.login-password');
+            showError(formLogin, '.login-password', 'Неверный логин или пароль');
         }
     }
 });
@@ -143,7 +127,7 @@ formRegister.addEventListener('submit', async (e) => {
     }
 
     try {
-        await registerUser(email.value, password.value)
+        await registerUser(email.value, password.value);
     } catch (error) {
 
         if (error.code === 'auth/email-already-in-use') {

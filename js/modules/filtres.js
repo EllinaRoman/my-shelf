@@ -24,16 +24,16 @@ const applyFilters = (allBooks) => {
 
     Object.entries(fieldMap).forEach(([, bookField]) => {
         if (activeFilters[bookField] !== 'all') {
-            result = result.filter(book => book[bookField]?.toLowerCase() === activeFilters[bookField].toLowerCase())
+            result = result.filter(book => book[bookField]?.toLowerCase() === activeFilters[bookField].toLowerCase());
         }
-    })
+    });
 
     if (activeFilters.title) {
         result = result.filter(book => book.title?.toLowerCase().includes(activeFilters.title));
     }
 
     displayBooks(result);
-}
+};
 
 document.addEventListener('change', async (e) => {
     const allBooks = await getAllBooks();

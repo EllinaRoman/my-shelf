@@ -20,4 +20,4 @@ navigation.addEventListener('click', (e) => {
         targetContainer.classList.remove('hidden');
     }
 
-})
+});

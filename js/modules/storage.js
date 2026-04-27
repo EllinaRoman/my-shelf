@@ -12,7 +12,7 @@ export let currentUser = null;
 
 onAuthStateChanged(auth, (user) => {
     currentUser = user;
-})
+});
 
 const STORE_NAME = 'books';
 

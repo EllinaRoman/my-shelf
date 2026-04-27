@@ -17,7 +17,7 @@ import { renderBooks } from './modules/library.js';
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-            .then(reg => {})
+            .then(() => {})
             .catch(err => console.error('Ошибка SW:', err));
     });
 }
