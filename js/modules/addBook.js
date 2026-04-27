@@ -37,7 +37,7 @@ formAddBook.addEventListener('submit', async (e) => {
 
     const seriesValue = series.value.trim();
     const numValue = num.value.trim();
-
+    let newAnnotation = null;
 
     if (seriesValue) {
         if (!numValue || +numValue <= 0) {
@@ -47,6 +47,14 @@ formAddBook.addEventListener('submit', async (e) => {
             const isDuplicate = allBooks.some(book => book.series?.toLowerCase() === seriesValue.toLowerCase() && book.seriesNum === +numValue);
             if (isDuplicate) {
                 isValid = toggleError(num, false, 'Номер уже занят');
+                return;
+            }
+
+            if (numValue > 1) {
+                const firstBook = allBooks.find(book => book.series?.toLowerCase() === seriesValue.toLowerCase() && book.seriesNum === 1);
+                if (firstBook) {
+                    newAnnotation = firstBook.annotation;
+                }
             }
         }
     }
@@ -59,6 +67,13 @@ formAddBook.addEventListener('submit', async (e) => {
 
     if (isValid) {
         const formData = new FormData(formAddBook);
+
+        let annotationValue = formData.get('annotation').trim() || null;
+
+        if (!annotationValue && newAnnotation) {
+            annotationValue = newAnnotation;
+        }
+
         const saveBook = async (coverData) => {
             const newBook = {
                 id: Date.now(),
@@ -67,7 +82,7 @@ formAddBook.addEventListener('submit', async (e) => {
                 series: formData.get('series'),
                 seriesNum: +formData.get('series-num'),
                 age: formData.get('age').trim() || "0+",
-                annotation: formData.get('annotation').trim() || null,
+                annotation: annotationValue || null,
                 status,
                 statusText: document.querySelector(`label[for="${formAddBook.querySelector('input[name="add-status"]:checked').id}"]`).textContent.trim(),
                 cover: coverData,
