@@ -70,7 +70,7 @@ nav {
     transform 0.2s ease;
 }
 
-.search_label {
+.search_label, .bi-pencil, .eye-toggle {
   transition:
     color 0.4s ease
 }
