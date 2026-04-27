@@ -26,7 +26,8 @@
   }
 
   .age_group,
-  .series_group, .tropes_group {
+  .series_group,
+  .tropes_group {
     grid-column: 2 / 3;
     justify-self: end;
   }
@@ -221,6 +222,22 @@
     width: 100%;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-select,
+  .search_filter {
+    width: 100%;
   }
 
   .navigation {

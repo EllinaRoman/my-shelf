@@ -73,6 +73,10 @@ body.modal-open {
 .container {
   padding-right: 32px;
   padding-left: 32px;
+
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .visually-hidden {
