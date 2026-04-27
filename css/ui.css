@@ -600,6 +600,7 @@ select.form-input--field {
 
   border: none;
   outline: none;
+  background-color: transparent;
 
   fill: var(--text3);
   width: 20px;
