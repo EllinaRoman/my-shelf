@@ -11,7 +11,7 @@ const registerUser = async (email, password) => {
     try {
         await createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
@@ -20,7 +20,7 @@ const loginUser = async (email, password) => {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log('Залогинен:', userCredential.user.email);
     } catch (error) {
-        console.error(error.code);
+        throw error;
     }
 }
 
@@ -28,7 +28,7 @@ const loginWithGoogle = async () => {
     try {
         await signInWithPopup(auth, googleProvider);
     } catch (error) {
-        console.error(error.code);
+        throw error;
     }
 }
 
@@ -36,7 +36,7 @@ const logoutUser = async () => {
     try {
         await signOut(auth);
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }
 
@@ -62,24 +62,80 @@ loginRegisterForm.addEventListener('change', (e) => {
 })
 
 const formLogin = document.querySelector('.login');
+const formRegister = document.querySelector('.register');
+
+const showError = (form, selector, message = null) => {
+    const div = form.querySelector(selector);
+    if (message) div.querySelector('.error-message').textContent = message;
+    div.classList.add('is-invalid');
+};
+
+const addClearListeners = (form, fields) => {
+    fields.forEach(({ name, selector }) => {
+        const input = form.querySelector(`[name="${name}"]`);
+        input?.addEventListener('input', () => {
+            input.closest(selector)?.classList.remove('is-invalid');
+        });
+    });
+};
+
+addClearListeners(formLogin, [
+    { name: 'email-login', selector: '.login-email' },
+    { name: 'password-login', selector: '.login-password' },
+]);
+
+addClearListeners(formRegister, [
+    { name: 'email-register', selector: '.register-email' },
+    { name: 'password-register', selector: '.register-password' },
+    { name: 'password-register-copy', selector: '.register-password-copy' },
+]);
+
 
 formLogin.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const { 'email-login': email, 'password-login': password } = e.target.elements;
-    await loginUser(email.value, password.value)
-});
+    const email = e.target.elements['email-login'];
+    const password = e.target.elements['password-login']
 
-const formRegister = document.querySelector('.register');
-
-formRegister.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const { 'email-register': email, 'password-register': password, 'password-register-copy': passwordCopy } = e.target.elements;
-
-    if (password.value !== passwordCopy.value) {
-        const copyDiv = formRegister.querySelector('.register-password-copy');
-        copyDiv.classList.add('is-invalid');
+    if (!email.value.includes('@')) {
+        showError(formLogin, '.login-email', 'Введите валидный email');
         return;
     }
 
-    await registerUser(email.value, password.value)
+    try {
+        await loginUser(email.value, password.value);
+    } catch (error) {
+        if (error.code === 'auth/invalid-credential') {
+            showError(formLogin, '.login-password');
+        }
+    }
+});
+
+formRegister.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = e.target.elements['email-register'];
+    const password = e.target.elements['password-register'];
+    const passwordCopy = e.target.elements['password-register-copy'];
+
+    if (password.value !== passwordCopy.value) {
+        showError(formRegister, '.register-password-copy');
+        return;
+    }
+
+    if (!email.value.includes('@')) {
+        showError(formRegister, '.register-email', 'Введите валидный Email');
+        return;
+    }
+
+    try {
+        await registerUser(email.value, password.value)
+    } catch (error) {
+
+        if (error.code === 'auth/email-already-in-use') {
+            showError(formRegister, '.register-email', 'Email уже зарегистрирован');
+        }
+
+        if (error.code === 'auth/weak-password') {
+            showError(formRegister, '.register-password');
+        }
+    }
 });
