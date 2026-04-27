@@ -6,13 +6,17 @@
 /* ==============================
    @LAYOUT
    ============================== */
+
+.main-control .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .main-control {
   background-color: var(--bg2);
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 15px;
   padding-bottom: 15px;
 }

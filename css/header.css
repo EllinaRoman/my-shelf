@@ -7,10 +7,14 @@
 /* ==============================
    @LAYOUT
    ============================== */
+
 .header_container {
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: var(--bg2);
+}
+
+.header_container .container  {
   display: flex;
   justify-content: space-between;
   align-items: center;

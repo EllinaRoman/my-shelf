@@ -36,7 +36,9 @@
     justify-content: center;
   }
 
-  .main-control {
+
+
+  .main-control .container {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
@@ -207,9 +209,12 @@
     padding-left: 16px;
   }
 
-  .header_container {
+  .header_container .container {
     flex-direction: column;
     gap: 12px;
+  }
+
+  .header_container {
     padding-top: 12px;
     padding-bottom: 12px;
   }
