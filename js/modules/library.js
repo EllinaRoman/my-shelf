@@ -105,7 +105,7 @@ export const displayBooks = (books) => {
 
 export const renderBooks = async () => {
   const books = await getAllBooks();
-  books.reverse();
-  updateMyLists(books);
-  displayBooks(books);
+  const sortedBooks = [...books].reverse();
+  updateMyLists(sortedBooks);
+  displayBooks(sortedBooks);
 };

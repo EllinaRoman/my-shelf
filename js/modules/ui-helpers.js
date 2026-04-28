@@ -2,23 +2,26 @@ const bookCoverInput = document.querySelector('.add-book_cover');
 const imgPreview = document.querySelector('.cover-preview');
 const label = document.querySelector('.add-book_label-cover');
 
-bookCoverInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    const coverText = label.querySelector('.cover-text');
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            imgPreview.src = reader.result;
-            imgPreview.classList.remove('hidden');
-            coverText.classList.add('hidden');
-        };
-        reader.readAsDataURL(file);
-    } else {
-        imgPreview.src = "";
-        imgPreview.classList.add('hidden');
-        coverText.classList.remove('hidden');
-    }
-});
+if (bookCoverInput && imgPreview && label) {
+    bookCoverInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const coverText = label.querySelector('.cover-text');
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                imgPreview.src = reader.result;
+                imgPreview.classList.remove('hidden');
+                coverText.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imgPreview.src = "";
+            imgPreview.classList.add('hidden');
+            coverText.classList.remove('hidden');
+        }
+    });
+}
 
 export const getBookDesign = () => {
     const chance = Math.random() * 100;

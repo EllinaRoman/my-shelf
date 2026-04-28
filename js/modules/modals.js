@@ -94,6 +94,8 @@ document.addEventListener('click', async (e) => {
 });
 
 export const setModalState = (overlay, isOpen) => {
+    if (!overlay) return;
+    
     overlay.classList.toggle('open', isOpen);
     document.body.classList.toggle('modal-open', isOpen);
 

@@ -9,20 +9,20 @@ import { auth, googleProvider, onAuthStateChanged } from './firebase-init.js';
 import { setModalState } from './modals.js';
 
 const registerUser = async (email, password) => {
-        await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
 };
 
 const loginUser = async (email, password) => {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log('Залогинен:', userCredential.user.email);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log('Залогинен:', userCredential.user.email);
 };
 
 const loginWithGoogle = async () => {
-        await signInWithPopup(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider);
 };
 
 const logoutUser = async () => {
-        await signOut(auth);
+    await signOut(auth);
 };
 
 export { registerUser, loginUser, logoutUser, loginWithGoogle };
@@ -59,21 +59,26 @@ if (authButton) {
 
 const btnGoogle = document.querySelector('#btn-google');
 
-btnGoogle.addEventListener('click', async () => {
-    await loginWithGoogle();
-});
+if (btnGoogle) {
+    btnGoogle.addEventListener('click', async () => {
+        await loginWithGoogle();
+    });
+}
 
 const loginRegisterForm = document.querySelector('.login-register_group');
 
-loginRegisterForm.addEventListener('change', (e) => {
-    if (e.target.value === 'login') {
-        document.querySelector('.login-form').classList.remove('hidden');
-        document.querySelector('.register-form').classList.add('hidden');
-    } else {
-        document.querySelector('.login-form').classList.add('hidden');
-        document.querySelector('.register-form').classList.remove('hidden');
-    }
-});
+if (loginRegisterForm) {
+    loginRegisterForm.addEventListener('change', (e) => {
+        if (e.target.value === 'login') {
+            document.querySelector('.login-form').classList.remove('hidden');
+            document.querySelector('.register-form').classList.add('hidden');
+        } else {
+            document.querySelector('.login-form').classList.add('hidden');
+            document.querySelector('.register-form').classList.remove('hidden');
+        }
+    });
+}
+
 
 const formLogin = document.querySelector('.login');
 const formRegister = document.querySelector('.register');
@@ -85,6 +90,7 @@ const showError = (form, selector, message = null) => {
 };
 
 const addClearListeners = (form, fields) => {
+    if (!form) return;
     fields.forEach(({ name, selector }) => {
         const input = form.querySelector(`[name="${name}"]`);
         input?.addEventListener('input', () => {
@@ -104,25 +110,26 @@ addClearListeners(formRegister, [
     { name: 'password-register-copy', selector: '.register-password-copy' },
 ]);
 
+if (formLogin) {
+    formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = e.target.elements['email-login'];
+        const password = e.target.elements['password-login'];
 
-formLogin.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = e.target.elements['email-login'];
-    const password = e.target.elements['password-login'];
-
-    if (!email.value.includes('@')) {
-        showError(formLogin, '.login-email', 'Введите валидный email');
-        return;
-    }
-
-    try {
-        await loginUser(email.value, password.value);
-    } catch (error) {
-        if (error.code === 'auth/invalid-credential') {
-            showError(formLogin, '.login-password', 'Неверный логин или пароль');
+        if (!email.value.includes('@')) {
+            showError(formLogin, '.login-email', 'Введите валидный email');
+            return;
         }
-    }
-});
+
+        try {
+            await loginUser(email.value, password.value);
+        } catch (error) {
+            if (error.code === 'auth/invalid-credential') {
+                showError(formLogin, '.login-password', 'Неверный логин или пароль');
+            }
+        }
+    });
+}
 
 document.querySelectorAll('.eye-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -140,40 +147,44 @@ document.querySelectorAll('.eye-toggle').forEach(btn => {
     });
 });
 
-formRegister.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = e.target.elements['email-register'];
-    const password = e.target.elements['password-register'];
-    const passwordCopy = e.target.elements['password-register-copy'];
+if (formRegister) {
+    formRegister.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = e.target.elements['email-register'];
+        const password = e.target.elements['password-register'];
+        const passwordCopy = e.target.elements['password-register-copy'];
 
-    if (password.value !== passwordCopy.value) {
-        showError(formRegister, '.register-password-copy', 'Пароли не совпадают');
-        return;
-    }
-
-    if (!email.value.includes('@')) {
-        showError(formRegister, '.register-email', 'Введите валидный Email');
-        return;
-    }
-
-    try {
-        await registerUser(email.value, password.value);
-    } catch (error) {
-
-        if (error.code === 'auth/email-already-in-use') {
-            showError(formRegister, '.register-email', 'Email уже зарегистрирован');
+        if (password.value !== passwordCopy.value) {
+            showError(formRegister, '.register-password-copy', 'Пароли не совпадают');
+            return;
         }
 
-        if (error.code === 'auth/weak-password') {
-            showError(formRegister, '.register-password', 'Пароль слишком короткий');
+        if (!email.value.includes('@')) {
+            showError(formRegister, '.register-email', 'Введите валидный Email');
+            return;
         }
-    }
-});
+
+        try {
+            await registerUser(email.value, password.value);
+        } catch (error) {
+
+            if (error.code === 'auth/email-already-in-use') {
+                showError(formRegister, '.register-email', 'Email уже зарегистрирован');
+            }
+
+            if (error.code === 'auth/weak-password') {
+                showError(formRegister, '.register-password', 'Пароль слишком короткий');
+            }
+        }
+    });
+}
 
 const confirmInput = formRegister.querySelector('.register-password-copy');
-['paste', 'drop'].forEach(eventType => {
-    confirmInput.addEventListener(eventType, (e) => {
-        e.preventDefault();
-        showError(formRegister, '.register-password-copy', 'Введите пароль вручную');
+if (confirmInput) {
+    ['paste', 'drop'].forEach(eventType => {
+        confirmInput.addEventListener(eventType, (e) => {
+            e.preventDefault();
+            showError(formRegister, '.register-password-copy', 'Введите пароль вручную');
+        });
     });
-});
+}

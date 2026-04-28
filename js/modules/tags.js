@@ -6,8 +6,8 @@ const btnAddTropes = document.querySelector('#add_trope');
 export const listTrope = document.querySelector('.trope');
 
 export const addTag = (input, storage, list, itemClass, textClass, deleteClass) => {
-    const value = input.value;
-    if (value.trim()) {
+    const value = input.value.trim();
+    if (value) {
         storage.push(value);
         list.classList.remove('hidden');
         const newBtn = document.createElement("button");
