@@ -10,6 +10,11 @@ const setTextBlock = (el, value) => {
     el.textContent = hasValue ? value : '';
 };
 
+const getTagsToDisplay = (main, all) => {
+    if (main && main.length > 0) return main;
+    return all ? all.slice(0, 2) : [];
+};
+
 
 export const getRandomBook = async () => {
     const allBooks = await getAllBooks();
@@ -73,10 +78,13 @@ export const getRandomBook = async () => {
     title.textContent = randomBook.title;
     author.textContent = randomBook.author;
 
+    const finalGenres = getTagsToDisplay(randomBook.mainGenres, randomBook.allGenres);
+    const finalTropes = getTagsToDisplay(randomBook.mainTropes, randomBook.allTropes);
+
     tags.innerHTML = [
         `<div class="tag-age">${randomBook.age}</div>`,
-        ...randomBook.mainGenres.map(g => `<div class="tag-genre">${g}</div>`),
-        ...randomBook.mainTropes.map(t => `<div class="tag-trope">${t}</div>`)
+        ...finalGenres.map(g => `<div class="tag-genre">${g}</div>`),
+        ...finalTropes.map(t => `<div class="tag-trope">${t}</div>`)
     ].join('');
 
 
