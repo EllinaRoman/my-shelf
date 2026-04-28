@@ -73,6 +73,18 @@
   display: block;
 }
 
+.flower-loader {
+  width: 200px;
+  height: 200px;
+  
+  background-image: url('../img/loader.svg');
+  background-repeat: no-repeat;
+  background-size: 2600px 100%; 
+
+  grid-column: 1 / -1;
+  margin: 80px auto;
+}
+
 /* ==============================
    @BOOK_CARD
    ============================== */

@@ -43,38 +43,36 @@ const updateMyLists = (allBooks) => {
 
 export const displayBooks = (books) => {
   const container = document.querySelector('.book-grid');
-  container.style.opacity = '0';
 
-  setTimeout(() => {
-    if (books.length === 0) {
-      container.innerHTML = `<div class="no-book">
+  if (books.length === 0) {
+    container.innerHTML = `<div class="no-book">
             <span class="icon">📭</span>Книги не найдены. Добавьте первую!
         </div>`;
-      container.style.opacity = '1';
-      return;
-    }
+    document.getElementById('app-loader')?.style.setProperty('display', 'none');
+    return;
+  }
 
-    let htmlContent = '';
-    books.forEach((el) => {
-      const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
-      const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
+  let htmlContent = '';
+  books.forEach((el) => {
+    const displayGenres = (el.mainGenres && el.mainGenres.length > 0) ? el.mainGenres : (el.allGenres && el.allGenres.length > 0) ? el.allGenres.slice(0, 2) : [];
+    const displayTropes = (el.mainTropes && el.mainTropes.length > 0) ? el.mainTropes : (el.allTropes && el.allTropes.length > 0) ? el.allTropes.slice(0, 2) : [];
 
-      let coverContent;
-      if (el.cover) {
-        coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
-      } else {
-        const hueValue = typeof el.accentHue === 'string'
-          ? (el.accentHue.match(/\d+/) ? el.accentHue.match(/\d+/)[0] : 280)
-          : (el.accentHue || 280);
+    let coverContent;
+    if (el.cover) {
+      coverContent = `<img src="${el.cover}" alt="Обложка" class="new-book_cover" />`;
+    } else {
+      const hueValue = typeof el.accentHue === 'string'
+        ? (el.accentHue.match(/\d+/) ? el.accentHue.match(/\d+/)[0] : 280)
+        : (el.accentHue || 280);
 
-        coverContent = `
+      coverContent = `
         <div class="new-book_no-cover" style="--book-hue: ${hueValue}">
             <p class="no-cover_title">${el.title}</p>
             <p class="no-cover_author">${el.author}</p>
         </div>
     `;
-      }
-      htmlContent += `<div class="new-book" data-status="${el.status}" data-id="${el.id}" data-modal="edit-book">
+    }
+    htmlContent += `<div class="new-book" data-status="${el.status}" data-id="${el.id}" data-modal="edit-book">
           <div class="new-book_bar"></div>
           <div class="new-book_main">
             ${coverContent}
@@ -97,15 +95,14 @@ export const displayBooks = (books) => {
           </div>
           </div>
         </div>`;
-    });
-    container.innerHTML = htmlContent;
-    container.style.opacity = '1';
-  }, 200);
+  });
+  container.innerHTML = htmlContent;
+
+  document.getElementById('app-loader')?.style.setProperty('display', 'none');
 };
 
 export const renderBooks = async () => {
   const books = await getAllBooks();
-  const sortedBooks = [...books].reverse();
-  updateMyLists(sortedBooks);
-  displayBooks(sortedBooks);
+  updateMyLists(books);
+  displayBooks(books);
 };

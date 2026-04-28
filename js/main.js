@@ -34,6 +34,6 @@ onAuthStateChanged(auth, (user) => {
 
 subscribeToAuthChanges(async () => {
     await renderBooks();
+    document.getElementById('app-loader').style.display = 'none';
 });
-
 

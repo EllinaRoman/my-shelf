@@ -42,6 +42,10 @@ nav {
    transition: opacity 0.3s ease;
 }
 
+.book-grid.fade-in {
+    animation: fadeIn 0.4s ease forwards;
+}
+
 .new-book {
   transition:
     background-color 0.4s ease,
@@ -50,6 +54,12 @@ nav {
     transform 0.2s ease,
     box-shadow 0.2s ease;
   cursor: pointer;
+}
+
+.new-book {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.35s ease forwards;
 }
 
 .new-book_title,
@@ -91,6 +101,11 @@ nav {
   animation: tag-in 0.2s ease;
 }
 
+
+.flower-loader {
+  animation: flower-anim 2s steps(12) infinite;
+}
+
 /* @KEYFRAMES */
 @keyframes tag-in {
   from {
@@ -117,4 +132,13 @@ nav {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(5px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes flower-anim {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: -2400px 0;
+  }
 }
