@@ -28,22 +28,42 @@ nav {
     box-shadow 0.4s ease;
 }
 
-
 .tab-content.hidden {
-    display: none;
+  display: none;
 }
 
 .tab-content:not(.hidden) {
-    animation: fadeIn 0.4s ease forwards;
+  animation: fadeIn 0.4s ease forwards;
 }
 
-
 .book-grid {
-   transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .book-grid.fade-in {
-    animation: fadeIn 0.4s ease forwards;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.modal-overlay {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.modal-content {
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
 }
 
 .new-book {
@@ -71,8 +91,14 @@ nav {
 .new-book_status,
 .new-book_stars,
 .new-book_no-cover,
-.border_nav, .btn_add-book, .btn_change-theme, .btn_login-register, .btn_random-book, .filter-select,
-.search_filter, .btn_login {
+.border_nav,
+.btn_add-book,
+.btn_change-theme,
+.btn_login-register,
+.btn_random-book,
+.filter-select,
+.search_filter,
+.btn_login {
   transition:
     background-color 0.4s ease,
     color 0.4s ease,
@@ -80,9 +106,10 @@ nav {
     transform 0.2s ease;
 }
 
-.search_label, .bi-pencil, .eye-toggle {
-  transition:
-    color 0.4s ease
+.search_label,
+.bi-pencil,
+.eye-toggle {
+  transition: color 0.4s ease;
 }
 
 .star-btn {
@@ -100,7 +127,6 @@ nav {
 .trope-btn {
   animation: tag-in 0.2s ease;
 }
-
 
 .flower-loader {
   animation: flower-anim 2s steps(12) infinite;
@@ -130,8 +156,14 @@ nav {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes flower-anim {
