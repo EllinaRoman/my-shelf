@@ -4,6 +4,7 @@ import { getAllBooks, saveToDB, updateFullBook } from './storage.js';
 import { gliderReset } from './status-glider.js';
 import { renderBooks } from './library.js';
 import { setModalState } from './modals.js';
+import { setupEditModal } from './editBook.js';
 
 const formAddBook = document.querySelector('#modal_add-book');
 
@@ -118,14 +119,9 @@ formAddBook.addEventListener('submit', async (e) => {
             const savedMode = resetForm(formAddBook);
             if (savedMode === 'edit') {
                 const editOverlay = document.querySelector('.modal-overlay[data-modal="edit-book"]');
-                const books = await getAllBooks();
-                const book = books.find(b => b.id === +editId);
-                if (book) {
-                    const { setupEditModal } = await import('./editBook.js');
-                    setupEditModal(book);
-                    setModalState(editOverlay, true);
-                    setModalState(document.querySelector('.modal-overlay[data-modal="add-book"]'), false);
-                }
+                setupEditModal(newBook);
+                setModalState(editOverlay, true);
+                setModalState(document.querySelector('.modal-overlay[data-modal="add-book"]'), false);
             }
         };
 
