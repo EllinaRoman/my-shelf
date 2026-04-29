@@ -124,6 +124,7 @@ formAddBook.addEventListener('submit', async (e) => {
                     const { setupEditModal } = await import('./editBook.js');
                     setupEditModal(book);
                     setModalState(editOverlay, true);
+                    setModalState(document.querySelector('.modal-overlay[data-modal="add-book"]'), false);
                 }
             }
         };
@@ -178,7 +179,9 @@ export const resetForm = (form) => {
         }
 
         if (typeof setModalState === 'function') {
-            setModalState(overlay, false);
+            if (mode !== 'edit') {
+                setModalState(overlay, false);
+            }
         }
     }
 
