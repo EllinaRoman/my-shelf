@@ -79,7 +79,3 @@ my-shelf/
 ├── sw.js             # Service Worker
 └── manifest.json     # PWA-манифест
 ```
-
----
-
-Разработано с любовью к книгам и коду 💜
