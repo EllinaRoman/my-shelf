@@ -103,6 +103,28 @@ document.addEventListener('click', async (e) => {
 
 let savedScrollY = 0;
 
+const lockScroll = () => {
+    savedScrollY = window.scrollY;
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100dvh';
+    document.body.style.touchAction = 'none';
+    document.addEventListener('touchmove', preventDefault, { passive: false });
+};
+
+const preventDefault = (e) => {
+    if (!e.target.closest('.modal-content')) {
+        e.preventDefault();
+    }
+};
+
+const unlockScroll = () => {
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+    document.body.style.touchAction = '';
+    document.removeEventListener('touchmove', preventDefault);
+    window.scrollTo(0, savedScrollY);
+};
+
 export const setModalState = (overlay, isOpen, options = {}) => {
     if (!overlay) return;
     const { keepBodyLocked = false } = options;
@@ -111,12 +133,8 @@ export const setModalState = (overlay, isOpen, options = {}) => {
 
     if (isOpen) {
         if (!hasOpenedModal) {
-            savedScrollY = window.scrollY;
-
-            document.body.style.top = `-${savedScrollY}px`;
-            document.body.classList.add('modal-open');
+            lockScroll();
         }
-
         overlay.classList.add('open');
 
         const toggle = overlay.querySelector('.status-toggle');
@@ -156,14 +174,8 @@ export const setModalState = (overlay, isOpen, options = {}) => {
 
     const stillOpenedModal = document.querySelector('.modal-overlay.open');
 
-    if (!stillOpenedModal && !keepBodyLocked) {
-        document.body.classList.remove('modal-open');
-        document.body.style.top = '';
-
-        window.scrollTo({
-            top: savedScrollY,
-            behavior: 'instant'
-        });
+    if (!stillOpenedModal) {
+        unlockScroll();
     }
 };
 
